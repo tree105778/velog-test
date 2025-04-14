@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   right: 0;
-  padding: 12px 15px 22px 17px;
+  padding: 12px 20px 20px 12px;
   background-color: white;
   display: flex;
   justify-content: space-between;
@@ -14,7 +14,7 @@
 .logoArea {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0px;
 }
 
 .vLogo {
@@ -46,7 +46,19 @@
 .right {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 0px;
+}
+
+.iconWrapper {
+  margin-right: 12px;
+}
+
+.iconWrapper:first-of-type {
+  margin-right: 22px;
+}
+
+.iconWrapper:last-of-type {
+  margin-right: 0px;
 }
 
 .icon {
@@ -108,8 +120,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: 520;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 13px;
 }
 
 .loginButton {
