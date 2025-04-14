@@ -1,0 +1,214 @@
+.FloatingHeader_block__Wy2Ou {
+  display: block;
+  position: fixed;
+  top: 0;
+  background: var(--bg-element1);
+  width: 100%;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
+  z-index: 1;
+}
+
+.HomeTab_wrapper__Z8vJT {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.HomeTab_wrapper__Z8vJT.HomeTab_isFloating__ouGoH {
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.HomeTab_left__o1RQE {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 48px;
+  user-select: none;
+  position: relative;
+}
+
+.HomeTab_tab__viwzb {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-bottom: 16px;
+}
+
+.HomeTab_tab__viwzb > a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--text3);
+}
+
+.HomeTab_active__qHDGO {
+  color: var(--text1);
+  font-weight: 700;
+}
+
+.HomeTab_tab__viwzb > a svg {
+  font-size: 24px;
+  margin-right: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .HomeTab_tab__viwzb > a svg {
+    font-size: 18px;
+  }
+
+  .HomeTab_tab__viwzb a + a {
+    margin-left: 8px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .HomeTab_tab__viwzb > a svg {
+    font-size: 16px;
+  }
+
+  .HomeTab_tab__viwzb a + a {
+    margin-left: 5px;
+  }
+}
+
+.HomeTab_tab__viwzb a + a {
+  margin-left: 20px;
+}
+
+.HomeTab_indicator__wQ03f {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  width: 60px;
+  background: #212529; /* 또는 #212529 */
+  transition: left 0.3s ease, width 0.3s ease;
+}
+
+@media screen and (max-width: 430px) {
+  .HomeTab_indicator__wQ03f {
+    width: 34%;
+    margin-left: 3px;
+  }
+}
+
+.HomeTab_right__GMLbd {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.HomeTab_selector__I5TLL {
+  background: var(--bg-element1);
+  height: 32px;
+  width: 100px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  margin-right: 10px;
+  font-weight: 600;
+  color: var(--text2);
+  font-size: 14px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  user-select: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .HomeTab_selector__I5TLL {
+    width: 84px;
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .HomeTab_selector__I5TLL {
+    width: 70px;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+}
+
+.HomeTab_selector__I5TLL svg {
+  width: 24px;
+  height: 24px;
+}
+
+.HomeTab_extra__x0Vmq {
+  margin-top: 5px;
+  cursor: pointer;
+  font-size: 24px;
+  color: var(--text3);
+}
+
+.TimeframePicker_aligner__hldJ2 {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 5;
+  transform-origin: top right;
+}
+
+.TimeframePicker_block__zLMBK {
+  margin-top: 8px;
+  width: 192px;
+  background: white;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 768px) {
+  .TimeframePicker_block__zLMBK {
+    width: 180px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .TimeframePicker_block__zLMBK {
+    width: 160px;
+  }
+}
+
+.TimeframePicker_block__zLMBK ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  user-select: none;
+}
+
+.TimeframePicker_block__zLMBK li {
+  border-top: 1px solid #eee;
+}
+
+.TimeframePicker_block__zLMBK li:first-child {
+  border-top: none;
+}
+
+.TimeframePicker_block__zLMBK li a {
+  display: block;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #212529;
+  text-decoration: none;
+  background: white;
+  transition: background 0.15s ease;
+  text-align: left; /* ← 이게 핵심 */
+}
+
+.TimeframePicker_block__zLMBK li a:hover {
+  background: #f8f9fa;
+}
+
+.TimeframePicker_active__T3EQK {
+  color: #12b886 !important;
+}
