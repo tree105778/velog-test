@@ -8,6 +8,7 @@ import Trending from './pages/Trending.jsx';
 import Recent from './pages/Recent.jsx';
 import UserPosts from './pages/UserPosts.jsx';
 import PostWrite from './pages/PostWrite.jsx';
+import MyVelog from './pages/MyVelog.jsx';
 
 const routes = createBrowserRouter([
   {
@@ -24,18 +25,22 @@ const routes = createBrowserRouter([
       },
       {
         path: '/recent',
-        element: <Recent />
+        element: <Recent />,
       },
       {
         path: '/:userName/posts',
-        element: <UserPosts />
+        element: <UserPosts />,
       },
     ],
   },
   {
     path: '/write',
-    element: <PostWrite />
-  }
+    element: <PostWrite />,
+  },
+  {
+    path: '/myvelog',
+    element: <MyVelog />,
+  },
 ]);
 
 createRoot(document.getElementById('root')).render(
