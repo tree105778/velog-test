@@ -37,10 +37,6 @@ const routes = createBrowserRouter([
     path: '/write',
     element: <PostWrite />,
   },
-  {
-    path: '/myvelog',
-    element: <MyVelog />,
-  },
 ]);
 
 createRoot(document.getElementById('root')).render(
