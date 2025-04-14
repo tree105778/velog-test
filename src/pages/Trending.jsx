@@ -1,11 +1,14 @@
 import React from 'react';
 import Tabs from '../components/Layout/Tabs';
+import PostList from '../components/PostCard/PostList';
 
 function Trending() {
   return (
     <>
-      <Tabs />
-      <div>Trending</div>
+      <div>
+        <Tabs />
+        <PostList />
+      </div>
     </>
   );
 }
