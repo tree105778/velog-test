@@ -206,8 +206,18 @@ body {
   font-size: 15px;
 }
 
+.tagItem {
+  padding: 3px 0;
+  font-size: 13px;
+  color: #444;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+  gap: 6px;
+}
+
 .tagActive {
-  color: green !important; /* !important 나중에 빼야함 */
+  color: green !important; /* important 빼야함*/
   font-weight: bold;
 }
 
@@ -220,15 +230,6 @@ body {
 .tagList {
   border-top: 1px solid black;
   list-style: none;
-}
-
-.tagItem {
-  padding: 8px 0;
-  font-size: 13px;
-  color: #444;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
 }
 
 .tagItem:hover {
