@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './MyVelog.module.css';
 import profileImg from '../assets/name.jpg';
 import series from '../assets/series.jpg';
 import introduction from '../assets/Introduction.jpg';
 import Header from '../components/Layout/Header';
 
-const MyVelog = () => {
+const MyVelog = ({ user }) => {
   const [activeTab, setActiveTab] = useState('글');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTag, setSelectedTag] = useState('전체보기');

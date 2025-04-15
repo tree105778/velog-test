@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './LoginModal.module.css';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const LoginModal = ({ onClose, setIsLoggedIn }) => {
   const [id, setId] = useState('');
@@ -15,6 +15,8 @@ const LoginModal = ({ onClose, setIsLoggedIn }) => {
 
     if (trimmedId === 'Kim' && trimmedPw === 'Kim') {
       setIsLoggedIn(true);
+      localStorage.setItem('id', trimmedId);
+      localStorage.setItem('pw', trimmedPw);
       onClose();
       navigate(location.pathname);
     } else {
