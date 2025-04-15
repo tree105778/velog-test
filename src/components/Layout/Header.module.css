@@ -13,7 +13,6 @@
   margin-right: 45px;
 }
 
-
 /* 2. 로고 영역 */
 .logoArea {
   display: flex;
@@ -81,7 +80,7 @@
 }
 .writeButton:hover {
   background-color: #212529;
-  color: white;   
+  color: white;
 }
 
 /* 6. 로그인 버튼 */
@@ -166,7 +165,7 @@
 
 /* 9. 로그아웃 버튼 */
 .logoutBtn {
-  all: unset; 
+  all: unset;
   cursor: pointer;
   color: inherit;
 }
