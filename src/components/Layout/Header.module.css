@@ -5,12 +5,14 @@
   left: 0;
   right: 0;
   padding: 12px 20px 20px 12px;
-  background-color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 10;
+  margin-left: 45px;
+  margin-right: 45px;
 }
+
 
 /* 2. 로고 영역 */
 .logoArea {
