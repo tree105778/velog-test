@@ -5,7 +5,7 @@ import styles from './Header.module.css';
 function Header() {
   const location = useLocation();
 
-  const [isLoggedIn] = useState(true); // 로그인O/X = true/false
+  const [isLoggedIn] = useState(false); // 로그인O/X = true/false
   const userid = 'Kim'; 
   const isUserPage = location.pathname.startsWith(`/@${userid}`);
 
