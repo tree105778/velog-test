@@ -80,7 +80,8 @@
 }
 
 .writeButton:hover {
-  background-color: #f1f3f5;
+  background-color: #212529;
+  color: white;   
 }
 
 /* 6. 로그인 버튼 */
