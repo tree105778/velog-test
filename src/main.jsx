@@ -8,6 +8,7 @@ import Recent from './pages/Recent.jsx';
 import UserPosts from './pages/UserPosts.jsx';
 import PostWrite from './pages/PostWrite.jsx';
 import MyVelog from './pages/MyVelog.jsx';
+import Feed from './pages/Feed.jsx';
 
 const routes = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const routes = createBrowserRouter([
       {
         path: '/recent',
         element: <Recent />,
+      },
+      {
+        path: '/feed',
+        element: <Feed />,
       },
       {
         path: '/:userName/posts',
