@@ -15,12 +15,10 @@ function Header() {
   const userid = 'Kim';
   const isUserPage = location.pathname.startsWith(`/@${userid}`);
 
-  // 로그인 상태 변경 시 로컬스토리지 업데이트
   useEffect(() => {
     localStorage.setItem('isLoggedIn', isLoggedIn);
   }, [isLoggedIn]);
 
-  // 드롭다운 외부 클릭 시 닫기
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -31,7 +29,6 @@ function Header() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // 로그인/로그아웃 핸들러
   const handleLogin = () => {
     setIsLoggedIn(true);
     window.location.reload();
@@ -62,8 +59,10 @@ function Header() {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 71 24"
-              width="66"
-              height="20"
+              class="velogLogo"
+              data-testid="velog-logo"
+              width="71"
+              height="24"
             >
               <path
                 fill="currentColor"
@@ -87,7 +86,7 @@ function Header() {
             <path
               fill="currentColor"
               d="M4 19v-2h2v-7c0-1.383.417-2.612 1.25-3.688.833-1.075 1.917-1.779 3.25-2.112v-.7c0-.417.146-.77.438-1.063A1.447 1.447 0 0 1 12 2c.417 0 .77.146 1.063.438.291.291.437.645.437 1.062v.7c1.333.333 2.417 1.037 3.25 2.112C17.583 7.388 18 8.617 18 10v7h2v2H4Zm8 3c-.55 0-1.02-.196-1.412-.587A1.926 1.926 0 0 1 10 20h4c0 .55-.196 1.02-.588 1.413A1.926 1.926 0 0 1 12 22Zm-4-5h8v-7c0-1.1-.392-2.042-1.175-2.825C14.042 6.392 13.1 6 12 6s-2.042.392-2.825 1.175C8.392 7.958 8 8.9 8 10v7Z"
-            ></path>
+            />
           </svg>
         </div>
         <div className={styles.iconWrapper}>
@@ -102,37 +101,42 @@ function Header() {
             <path
               fill="currentColor"
               d="m19.326 20.712-5.809-5.808a5.693 5.693 0 0 1-1.765.98 6.394 6.394 0 0 1-2.133.354c-1.849 0-3.414-.64-4.697-1.923C3.641 13.033 3 11.468 3 9.619c0-1.849.637-3.414 1.91-4.697C6.183 3.641 7.744 3 9.593 3c1.866 0 3.44.64 4.723 1.922 1.282 1.283 1.922 2.848 1.922 4.697 0 .75-.117 1.46-.352 2.132a6.052 6.052 0 0 1-.982 1.793l5.834 5.808a.888.888 0 0 1 .262.654c0 .261-.096.497-.288.706a.944.944 0 0 1-.693.288.945.945 0 0 1-.693-.288Zm-9.707-6.436c1.29 0 2.39-.453 3.297-1.36s1.36-2.006 1.36-3.297c0-1.308-.453-2.411-1.36-3.31-.907-.898-2.006-1.347-3.297-1.347-1.308 0-2.411.45-3.309 1.347-.898.899-1.348 2.002-1.348 3.31 0 1.29.45 2.39 1.348 3.297.898.907 2.001 1.36 3.31 1.36Z"
-            ></path>
+            />
           </svg>
         </div>
-        {isLoggedIn ? (
-          <div className={styles.profileArea} ref={dropdownRef}>
-            <div
-              onClick={() => setMenuOpen(!menuOpen)}
-              className={styles.profile}
-            >
-              Kim
-              <span className={styles.dropdownArrow}>▼</span>
-            </div>
 
-            {menuOpen && (
-              <ul className={styles.dropdownMenu}>
-                <li>
-                  <a href={`/@${userid}`}>내 벨로그</a>
-                </li>
-                <li>
-                  <a href="#">임시 글</a>
-                </li>
-                <li>
-                  <a href="#">읽기 목록</a>
-                </li>
-                <li>
-                  <a href="#">설정</a>
-                </li>
-                <li onClick={handleLogout}>로그아웃</li>
-              </ul>
-            )}
-          </div>
+        {isLoggedIn ? (
+          <>
+            <button className={styles.writeButton}>새 글 작성</button>
+            <div
+              className={styles.profileArea}
+              ref={dropdownRef}
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              <div className={styles.profileWrapper}>
+                <div className={styles.profile}>Kim</div>
+                <span className={styles.dropdownArrow}>▼</span>
+              </div>
+
+              {menuOpen && (
+                <ul className={styles.dropdownMenu}>
+                  <li>
+                    <a href={`/@${userid}`}>내 벨로그</a>
+                  </li>
+                  <li>
+                    <a href="#">임시 글</a>
+                  </li>
+                  <li>
+                    <a href="#">읽기 목록</a>
+                  </li>
+                  <li>
+                    <a href="#">설정</a>
+                  </li>
+                  <li onClick={handleLogout}>로그아웃</li>
+                </ul>
+              )}
+            </div>
+          </>
         ) : (
           <>
             <button
