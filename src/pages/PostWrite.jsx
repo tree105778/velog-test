@@ -5,11 +5,13 @@ import 'codemirror/mode/markdown/markdown';
 import 'codemirror/addon/display/placeholder';
 import WriteMarkdownEditor from '../components/write/WriteMarkdownEditor.jsx';
 import MarkdownPreview from '../components/write/MarkdownPreview.jsx';
+import { useNavigate } from 'react-router-dom';
 
 function PostWrite() {
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState([]);
   const [markdown, setMarkdown] = useState('');
+  const navigate = useNavigate();
 
   const handleChangeTitle = (title) => {
     setTitle(title);
@@ -17,7 +19,6 @@ function PostWrite() {
 
   const handleChangeMarkdown = (content) => {
     setMarkdown(content);
-    console.log(content);
   };
 
   // 태그 변경 핸들러 예시
@@ -39,7 +40,10 @@ function PostWrite() {
         />
         <footer>
           <div className={styles.footerSection}>
-            <button className={styles.footerButton}>
+            <button
+              className={styles.footerButton}
+              onClick={() => navigate(-1)}
+            >
               <svg
                 stroke="currentColor"
                 fill="currentColor"

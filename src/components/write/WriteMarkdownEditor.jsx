@@ -65,6 +65,34 @@ const WriteMarkdownEditor = ({
     }
   }, []);
 
+  // 커서 위치로 스크롤 이동 처리
+  const scrollToCursor = useCallback((textarea, cursorPos) => {
+    // 현재 커서 위치까지의 텍스트를 추출
+    const text = textarea.value;
+    const textBeforeCursor = text.substring(0, cursorPos);
+
+    // 줄 수 계산
+    const lines = textBeforeCursor.split('\n');
+    const lineCount = lines.length;
+
+    // 현재 줄의 높이와 위치 추정
+    const lineHeight = parseInt(getComputedStyle(textarea).lineHeight);
+    const approxPos = (lineCount - 1) * lineHeight;
+
+    // textarea의 현재 스크롤 정보
+    const scrollTop = textarea.scrollTop;
+    const clientHeight = textarea.clientHeight;
+
+    // 커서 위치가 보이는 영역을 벗어났는지 확인
+    if (
+      approxPos < scrollTop ||
+      approxPos > scrollTop + clientHeight - lineHeight * 2
+    ) {
+      // 스크롤 위치 조정 - 커서 위치가 중앙에 오도록
+      textarea.scrollTop = Math.max(0, approxPos - clientHeight / 2);
+    }
+  }, []);
+
   // 툴바 클릭 처리 - textarea 직접 조작 버전
   const handleToolbarClick = useCallback(
     (mode) => {
@@ -325,9 +353,11 @@ const WriteMarkdownEditor = ({
         textarea.focus();
         textarea.setSelectionRange(newCursorPos, newCursorPos);
         setCurrentField('markdown');
+
+        scrollToCursor(textarea, newCursorPos);
       }, 0);
     },
-    [directMarkdown, onChangeMarkdown],
+    [directMarkdown, onChangeMarkdown, scrollToCursor],
   );
 
   // 링크 추가 완료 처리
@@ -451,6 +481,14 @@ const WriteMarkdownEditor = ({
       tagInputRef.current.focus();
     } else if (currentField === 'markdown' && editorElement.current) {
       editorElement.current.focus();
+      const textarea = editorElement.current;
+      const cursorPos = textarea.selectionStart;
+      textarea.focus();
+
+      setTimeout(() => {
+        textarea.setSelectionRange(cursorPos, cursorPos);
+        scrollToCursor(textarea, cursorPos);
+      });
     }
   }, [currentField]);
 
@@ -463,77 +501,58 @@ const WriteMarkdownEditor = ({
 
   return (
     <div className={styles.editorContainer} ref={block}>
-      {!hideUpper && (
-        <div className={styles.editorHeader}>
-          <textarea
-            ref={titleRef}
-            placeholder="제목을 입력하세요"
-            value={title || ''}
-            onChange={handleTitleChange}
-            onFocus={() => setCurrentField('title')}
-            className={styles.titleInput}
-          />
-          <div className={styles.titleTagHr}></div>
-          <div className={styles.tagContainer}>
-            {/* 태그 목록 - Velog 스타일 */}
-            {localTags.map((tag) => (
-              <div
-                key={tag}
-                className={styles.tag}
-                onClick={() => handleRemoveTag(tag)}
-              >
-                {tag}
-              </div>
-            ))}
-            {/* 태그 입력창 */}
-            <input
-              ref={tagInputRef}
-              type="text"
-              placeholder="태그를 입력하세요"
-              value={tagInput}
-              onChange={handleTagInputChange}
-              onKeyDown={handleTagInputKeyDown}
-              onFocus={handleTagInputFocus}
-              className={styles.tagInput}
+      <div className={styles.editorSection}>
+        {!hideUpper && (
+          <div className={styles.editorHeader}>
+            <textarea
+              ref={titleRef}
+              placeholder="제목을 입력하세요"
+              value={title || ''}
+              onChange={handleTitleChange}
+              onFocus={() => setCurrentField('title')}
+              className={styles.titleInput}
             />
+            <div className={styles.titleTagHr}></div>
+            <div className={styles.tagContainer}>
+              {/* 태그 목록 - Velog 스타일 */}
+              {localTags.map((tag) => (
+                <div
+                  key={tag}
+                  className={styles.tag}
+                  onClick={() => handleRemoveTag(tag)}
+                >
+                  {tag}
+                </div>
+              ))}
+              {/* 태그 입력창 */}
+              <input
+                ref={tagInputRef}
+                type="text"
+                placeholder="태그를 입력하세요"
+                value={tagInput}
+                onChange={handleTagInputChange}
+                onKeyDown={handleTagInputKeyDown}
+                onFocus={handleTagInputFocus}
+                className={styles.tagInput}
+              />
+            </div>
           </div>
+        )}
+        <ToolbarComponent onClick={handleToolbarClick} ref={toolbarElement} />
+
+        <div className={styles.editorWrapper} ref={editorWrapperRef}>
+          {/* CodeMirror 대신 일반 textarea 사용 */}
+          <textarea
+            aria-valuemax={1}
+            ref={editorElement}
+            placeholder="당신의 이야기를 적어보세요..."
+            value={directMarkdown}
+            onChange={handleMarkdownChange}
+            onFocus={() => setCurrentField('markdown')}
+            onScroll={handleScroll}
+            className={styles.markdownTextarea}
+          />
         </div>
-      )}
-
-      <ToolbarComponent onClick={handleToolbarClick} ref={toolbarElement} />
-
-      <div
-        className={styles.editorWrapper}
-        ref={editorWrapperRef}
-        style={{
-          flex: 1,
-          minHeight: '500px',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        {/* CodeMirror 대신 일반 textarea 사용 */}
-        <textarea
-          ref={editorElement}
-          placeholder="당신의 이야기를 적어보세요..."
-          value={directMarkdown}
-          onChange={handleMarkdownChange}
-          onFocus={() => setCurrentField('markdown')}
-          onScroll={handleScroll}
-          className={styles.markdownTextarea}
-          style={{
-            width: '100%',
-            height: '100%',
-            minHeight: '500px',
-            padding: '1rem',
-            fontSize: '16px',
-            lineHeight: '1.5',
-            border: 'none',
-            outline: 'none',
-            resize: 'none',
-            fontFamily: "'Fira Mono', monospace, sans-serif",
-          }}
-        />
       </div>
 
       {addLink.visible && (
