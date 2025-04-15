@@ -6,7 +6,7 @@ const PostCard = ({ post }) => {
     <li className={styles.postCard}>
       <a href={post.link} className={styles.link}>
         <div className={styles.thumb} style={{ paddingTop: '52.1921%' }}>
-          <img src={post.image} alt={`${post.title} post`} />
+          <img src={post.thumbnailUrl} alt={`${post.title} post`} />
         </div>
       </a>
 
@@ -14,7 +14,7 @@ const PostCard = ({ post }) => {
         <a href={post.link} className={styles.link}>
           <h4 className={styles.title}>{post.title}</h4>
           <div>
-            <p className={styles.summary}>{post.summary}</p>
+            <p className={styles.summary}>{post.description}</p>
           </div>
         </a>
         <div className={styles.meta}>
