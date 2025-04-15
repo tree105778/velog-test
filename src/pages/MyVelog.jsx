@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './MyVelog.module.css';
-import profileImg from '../assets/name.jpg';
+// import profileImg from '../assets/name.jpg';
 import series from '../assets/series.jpg';
 import introduction from '../assets/Introduction.jpg';
 import Header from '../components/Layout/Header';
 
-const MyVelog = ({ user }) => {
+const MyVelog = () => {
+  const userId = localStorage.getItem('id');
   const [activeTab, setActiveTab] = useState('글');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTag, setSelectedTag] = useState('전체보기');
@@ -44,12 +45,14 @@ const MyVelog = ({ user }) => {
       <main className={styles.MyVelogBody}>
         <div className={styles.MyVelogProfileHeader}>
           <div className={styles.MyVelogProfileInfo}>
-            <img
+            {/* <img
               src={profileImg}
               alt="프로필 이미지"
               className={styles.MyVelogProfileImage}
-            />
-            <h1 className={styles.MyVelogTitle}>한종균</h1>
+            /> */}
+            <div className={styles.MyVelogProfile}>{userId}</div>
+
+            <h1 className={styles.MyVelogTitle}>{userId}</h1>
           </div>
           <div className={styles.MyVelogFollowInfo}>
             <span className={styles.MyVelogFollowNum}>0</span>
