@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styles from './Header.module.css';
+import LoginModal from '../Modal/LoginModal';
+
 
 function Header() {
   const location = useLocation();
 
-  const [isLoggedIn] = useState(true); // 로그인O/X = true/false
+  const [isLoggedIn] = useState(false); // 로그인O/X = true/false
   const userid = 'Kim';
   const isUserPage = location.pathname.startsWith(`/@${userid}`);
-
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false); // 모달 on/off 상태
 
   return (
     <header className={styles.header}>
@@ -101,7 +103,17 @@ function Header() {
             )}
           </div>
         ) : (
-          <button className={styles.loginButton}>로그인</button>
+          <>
+            <button
+              className={styles.loginButton}
+              onClick={() => setShowLoginModal(true)}
+            >
+              로그인
+            </button>
+            {showLoginModal && (
+              <LoginModal onClose={() => setShowLoginModal(false)} />
+            )}
+          </>
         )}
       </div>
     </header>

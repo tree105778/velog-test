@@ -1,0 +1,162 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(248, 249, 250, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal {
+  width: 600px;
+  height: 400px;
+  background: white;
+  display: flex;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.left {
+  flex: 1;
+  background: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.left svg {
+  width: 120px;
+  height: auto;
+}
+
+.left h2 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #212529;
+}
+
+.right {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+input {
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.loginBtn {
+  background: #12b886;
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.error {
+  color: red;
+  font-size: 0.8rem;
+  margin: 0.2rem 0;
+}
+
+.socialLabel {
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  color: #495057;
+}
+
+.socialIcons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.3rem;
+}
+
+.iconBtn {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconBtn.github {
+  background-color: black;
+  box-shadow: 0 0 0 1px #dee2e6;
+}
+
+
+.iconBtn.google {
+  background-color: #fff;
+  box-shadow: 0 0 0 1px #dee2e6;
+}
+
+.iconBtn.facebook {
+  background-color: rgb(59, 89, 152);;
+}
+
+.iconBtn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.iconBtn.google svg {
+  color: unset;
+}
+
+.signup {
+  margin-top: auto;
+  font-size: 0.85rem;
+  text-align: center;
+  color: #868e96;
+}
+
+.signup span {
+  color: #12b886;
+  font-weight: bold;
+  cursor: pointer;
+}
