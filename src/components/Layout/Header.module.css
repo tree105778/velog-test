@@ -1,3 +1,4 @@
+/* 1. 헤더 레이아웃 */
 .header {
   position: absolute;
   top: 0;
@@ -12,6 +13,7 @@
   margin-right: 45px;
 }
 
+/* 2. 로고 영역 */
 .logoArea {
   display: flex;
   align-items: center;
@@ -35,33 +37,22 @@
   text-decoration: none;
 }
 
-.logoutBtn {
-  all: unset;
-  cursor: pointer;
-  color: inherit;
-}
-
 .mainLogo {
   color: #212529;
   text-decoration: none;
 }
 
+/* 3. 오른쪽 영역 */
 .right {
   display: flex;
   align-items: center;
-  gap: 0px;
+  gap: 16px; /* 아이콘, 버튼, 프로필 간 간격 일정하게 */
 }
 
+/* 4. 아이콘 */
 .iconWrapper {
-  margin-right: 12px;
-}
-
-.iconWrapper:first-of-type {
-  margin-right: 22px;
-}
-
-.iconWrapper:last-of-type {
-  margin-right: 0px;
+  display: flex;
+  align-items: center;
 }
 
 .icon {
@@ -71,21 +62,78 @@
   stroke-width: 2.5;
 }
 
+/* 5. 새 글 작성 버튼 */
+.writeButton {
+  padding: 6px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 999px;
+  border: 1px solid #212529;
+  background-color: white;
+  color: #212529;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.writeButton:hover {
+  background-color: #212529;
+  color: white;
+}
+
+/* 6. 로그인 버튼 */
+.loginButton {
+  background-color: #212529;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 12px;
+}
+
+/* 7. 프로필 */
 .profileArea {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 4px;
   cursor: pointer;
-  margin-right: 20px;
+}
+
+.profileWrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.profile {
+  background-color: #1e7f5c;
+  color: white;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1;
+  vertical-align: middle;
 }
 
 .dropdownArrow {
   font-size: 12px;
-  margin-left: 4px;
   color: lightslategray;
+  line-height: 1;
+  position: relative;
+  top: 1px;
 }
 
+/* 8. 드롭다운 */
 .dropdownMenu {
   position: absolute;
   top: 48px;
@@ -115,27 +163,9 @@
   color: #212529;
 }
 
-.profile {
-  background-color: #1e7f5c;
-  color: white;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 600;
-  font-size: 13px;
-}
-
-.loginButton {
-  background-color: #212529;
-  color: white;
-  border: none;
-  border-radius: 999px;
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 600;
+/* 9. 로그아웃 버튼 */
+.logoutBtn {
+  all: unset;
   cursor: pointer;
-  margin-right: 12px;
+  color: inherit;
 }

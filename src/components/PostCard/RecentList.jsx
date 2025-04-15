@@ -3,18 +3,46 @@ import PostCard from './PostCard';
 import styles from './PostList.module.css';
 
 const parseDate = (dateString) => {
-  if (dateString.includes('일 전')) {
-    const daysAgo = parseInt(dateString.replace('일 전', '').trim(), 10);
-    const date = new Date();
-    date.setDate(date.getDate() - daysAgo);
-    return date;
+  const now = new Date();
+  const cleanStr = dateString.replace(/^약\s*/, '').trim(); // "약 " 제거
+
+  if (cleanStr === '어제') {
+    const yesterday = new Date(now);
+    yesterday.setDate(now.getDate() - 1);
+    return yesterday;
   }
-  const normalized = dateString
-    .replace('년', '-')
-    .replace('월', '-')
-    .replace('일', '')
-    .replace(/\s+/g, '');
-  return new Date(normalized);
+
+  if (cleanStr.includes('일 전')) {
+    const daysAgo = parseInt(cleanStr.replace('일 전', '').trim(), 10);
+    return new Date(now.getTime() - daysAgo * 24 * 60 * 60 * 1000);
+  }
+
+  if (cleanStr.includes('시간 전')) {
+    const hoursAgo = parseInt(cleanStr.replace('시간 전', '').trim(), 10);
+    return new Date(now.getTime() - hoursAgo * 60 * 60 * 1000);
+  }
+
+  if (cleanStr.includes('분 전')) {
+    const minutesAgo = parseInt(cleanStr.replace('분 전', '').trim(), 10);
+    return new Date(now.getTime() - minutesAgo * 60 * 1000);
+  }
+
+  if (cleanStr.includes('초 전')) {
+    const secondsAgo = parseInt(cleanStr.replace('초 전', '').trim(), 10);
+    return new Date(now.getTime() - secondsAgo * 1000);
+  }
+
+  if (cleanStr.includes('방금 전')) {
+    return now;
+  }
+
+  const match = cleanStr.match(/(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일/);
+  if (match) {
+    const [, year, month, day] = match;
+    return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+  }
+
+  return new Date(cleanStr);
 };
 
 const RecentList = () => {

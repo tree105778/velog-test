@@ -1,0 +1,63 @@
+.block {
+  margin-top: 96px; /* 기존 64px에서 증가 */
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.image {
+  width: 269px;
+  height: 300px;
+  margin: 0 auto;
+  margin-bottom: 24px; /* 이미지와 텍스트 사이 간격 */
+}
+
+.image svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.text {
+  margin-top: 32px;
+  color: var(--text2);
+  font-size: 32px;
+  font-weight: 400;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .text {
+    font-size: 20px;
+  }
+}
+
+.buttonWrapper {
+  margin-top: 40px;
+}
+
+@media screen and (max-width: 768px) {
+  .buttonWrapper {
+    margin-top: 32px;
+  }
+}
+
+.button {
+  border-radius: 27px;
+  font-size: 24px;
+  padding: 12px 32px;
+  user-select: none;
+  outline: none;
+  background-color: #212529; /* 검정 */
+  color: white;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .button {
+    font-size: 18px;
+    padding: 12px 28px;
+  }
+}

@@ -141,74 +141,81 @@ const Tabs = () => {
           </nav>
         </div>
 
-        <div className={styles.selectorArea}>
-          <div
-            className={styles.selector}
-            onClick={() => {
-              setShowTimeframeDropdown(!showTimeframeDropdown);
-              setShowMenuDropdown(false);
-            }}
-          >
-            {labelMap[selectedTimeframe]}
-            <svg
-              stroke="currentColor"
-              fill="currentColor"
-              strokeWidth="0"
-              viewBox="0 0 24 24"
-              height="1em"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+        {activeTab === 'trending' && (
+          <div className={styles.selectorArea}>
+            <div
+              className={styles.selector}
+              onClick={() => {
+                setShowTimeframeDropdown(!showTimeframeDropdown);
+                setShowMenuDropdown(false);
+              }}
             >
-              <path fill="none" d="M0 0h24v24H0z" />
-              <path d="M7 10l5 5 5-5z" />
-            </svg>
-          </div>
+              {labelMap[selectedTimeframe]}
+              <svg
+                stroke="currentColor"
+                fill="currentColor"
+                strokeWidth="0"
+                viewBox="0 0 24 24"
+                height="1em"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path fill="none" d="M0 0h24v24H0z" />
+                <path d="M7 10l5 5 5-5z" />
+              </svg>
+            </div>
 
+            {showTimeframeDropdown && (
+              <div
+                className={styles.dropdownWrap}
+                style={{ opacity: 1, transform: 'scale(1)' }}
+              >
+                <div className={styles.dropdown}>
+                  <ul>
+                    {timeframes.map((t) => (
+                      <li key={t.key}>
+                        <a
+                          className={
+                            t.key === selectedTimeframe
+                              ? styles.activeTimeframe
+                              : ''
+                          }
+                          href={t.href}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setSelectedTimeframe(t.key);
+                            setShowTimeframeDropdown(false);
+                          }}
+                        >
+                          {t.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        <div className={styles.extra}>
           <svg
-            className={styles.extra}
             onClick={() => {
               setShowMenuDropdown(!showMenuDropdown);
               setShowTimeframeDropdown(false);
             }}
+            stroke="currentColor"
+            fill="currentColor"
+            stroke-width="0"
             viewBox="0 0 24 24"
+            class="HomeTab_extra__x0Vmq"
             height="1em"
             width="1em"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path fill="none" d="M0 0h24v24H0z" />
-            <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+            <path fill="none" d="M0 0h24v24H0z"></path>
+            <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
           </svg>
-
-          {showTimeframeDropdown && (
-            <div
-              className={styles.dropdownWrap}
-              style={{ opacity: 1, transform: 'scale(1)' }}
-            >
-              <div className={styles.dropdown}>
-                <ul>
-                  {timeframes.map((t) => (
-                    <li key={t.key}>
-                      <a
-                        className={
-                          t.key === selectedTimeframe
-                            ? styles.activeTimeframe
-                            : ''
-                        }
-                        href={t.href}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setSelectedTimeframe(t.key);
-                          setShowTimeframeDropdown(false);
-                        }}
-                      >
-                        {t.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          )}
         </div>
 
         {showMenuDropdown && (
@@ -233,7 +240,7 @@ const Tabs = () => {
             </div>
             <div className={styles.menuLogo}>
               <img
-                src="https://assets.velog.io/images/velog/meta/stellate.png"
+                src="https://graphcdn.io/badge.svg"
                 alt="Powered by Stellate"
               />
             </div>
