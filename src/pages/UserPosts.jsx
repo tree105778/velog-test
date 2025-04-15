@@ -1,9 +1,7 @@
 import React from 'react';
 
 function UserPosts() {
-  return (
-    <div>UserPosts</div>
-  );
+  return <div>UserPosts</div>;
 }
 
 export default UserPosts;
