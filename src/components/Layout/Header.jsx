@@ -1,33 +1,39 @@
 import { useLocation } from 'react-router-dom';
 import styles from './Header.module.css';
 import LoginModal from '../Modal/LoginModal';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 function Header() {
   const location = useLocation();
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    return localStorage.getItem('isLoggedIn') === 'true';
-  });
-
-  useEffect(() => {
-    localStorage.setItem('isLoggedIn', isLoggedIn);
-  }, [isLoggedIn]);
-  const [showLoginModal, setShowLoginModal] = useState(false); // 모달 상태
-  const [menuOpen, setMenuOpen] = useState(false); // 드롭다운 메뉴
+  const dropdownRef = useRef(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    () => localStorage.getItem('isLoggedIn') === 'true',
+  );
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const userid = 'Kim';
   const isUserPage = location.pathname.startsWith(`/@${userid}`);
 
+  // 로그인 상태 변경 시 로컬스토리지 업데이트
   useEffect(() => {
-    const savedLogin = localStorage.getItem('isLoggedIn');
-    if (savedLogin === 'true') {
-      setIsLoggedIn(true);
-    }
+    localStorage.setItem('isLoggedIn', isLoggedIn);
+  }, [isLoggedIn]);
+
+  // 드롭다운 외부 클릭 시 닫기
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // 로그인/로그아웃 핸들러
   const handleLogin = () => {
     setIsLoggedIn(true);
-    localStorage.setItem('isLoggedIn', 'true');
     window.location.reload();
   };
 
@@ -100,12 +106,14 @@ function Header() {
           </svg>
         </div>
         {isLoggedIn ? (
-          <div
-            className={styles.profileArea}
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            <div className={styles.profile}>Kim</div>
-            <span className={styles.dropdownArrow}>▼</span>
+          <div className={styles.profileArea} ref={dropdownRef}>
+            <div
+              onClick={() => setMenuOpen(!menuOpen)}
+              className={styles.profile}
+            >
+              Kim
+              <span className={styles.dropdownArrow}>▼</span>
+            </div>
 
             {menuOpen && (
               <ul className={styles.dropdownMenu}>
