@@ -550,7 +550,11 @@ const WriteMarkdownEditor = ({
             onChange={handleMarkdownChange}
             onFocus={() => setCurrentField('markdown')}
             onScroll={handleScroll}
-            className={styles.markdownTextarea}
+            className={
+              !directMarkdown
+                ? styles.markdownTextareaItalic
+                : styles.markdownTextarea
+            }
           />
         </div>
       </div>

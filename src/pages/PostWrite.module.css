@@ -59,7 +59,6 @@
   resize: none;
   padding: 0;
   height: 66px;
-  /*max-height: 450px;*/
 }
 
 .titleTagHr {
@@ -87,6 +86,7 @@
   font-size: 1.125rem;
   line-height: 2rem;
   margin-bottom: 0.75rem;
+  padding: 0;
   min-width: 8rem;
   border: none;
   color: var(--text1);
@@ -312,8 +312,6 @@ footer {
   flex-wrap: wrap;
   flex-shrink: 0;
   overflow: auto;
-  padding-left: 3rem;
-  padding-right: 3rem;
   width: auto;
 }
 
@@ -366,7 +364,7 @@ footer {
 }
 
 .editorSection {
-  padding: 1rem 3rem;
+  padding: 2.5rem 3rem;
   min-height: 0;
   height: 100%;
 }
@@ -427,10 +425,20 @@ footer {
   outline: none;
   resize: none;
   font-family: 'Fira Mono', monospace, sans-serif;
-  /*overflow-y: auto;*/
+  overflow-y: auto;
   color: var(--text1);
   background: transparent;
   scroll-behavior: smooth;
+  font-size: 1.125rem;
+}
+
+.markdownTextareaItalic {
+  font-style: italic;
+  font-size: 1.125rem;
+  border: none;
+  outline: none;
+  resize: none;
+  height: 100%;
 }
 
 /* CodeMirror 스타일 */
