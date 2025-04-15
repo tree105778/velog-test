@@ -59,6 +59,7 @@
   resize: none;
   padding: 0;
   height: 66px;
+  word-spacing: -1rem;
 }
 
 .titleTagHr {

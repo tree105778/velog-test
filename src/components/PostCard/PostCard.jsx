@@ -26,7 +26,10 @@ const PostCard = ({ post }) => {
 
       <div className={styles.footer}>
         <a className={styles.user} href={post.authorLink}>
-          <img src={post.profile} alt={`user thumbnail of ${post.author}`} />
+          <img
+            src={post.authorImageUrl}
+            alt={`user thumbnail of ${post.author}`}
+          />
           <span>
             by <b>{post.author}</b>
           </span>
