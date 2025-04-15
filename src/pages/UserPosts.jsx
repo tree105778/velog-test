@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import { NavLink, Outlet, useParams } from 'react-router-dom';
 import styles from './MyVelog.module.css';
 import Header from '../components/Layout/Header.jsx';
 
 function UserPosts() {
   const { userName: userId } = useParams();
+  const labelsMap = { posts: '글', series: '시리즈', about: '소개' };
   const [activeTab, setActiveTab] = useState('posts');
   const [underlinePosition, setUnderlinePosition] = useState(0);
-
-  const tabRefs = useRef(null);
+  const tabRefs = useRef([]);
 
   useEffect(() => {
     const currentTab = tabRefs.current[activeTab];
@@ -37,18 +37,17 @@ function UserPosts() {
 
         <div className={styles.MyVelogSectionTabContainer}>
           {['posts', 'series', 'about'].map((label) => (
-            <a
+            <NavLink
               key={label}
-              href={`${label}`}
-              ref={tabRefs}
-              onClick={(e) => {
-                e.preventDefault();
-                setActiveTab(label);
+              to={`${label}`}
+              ref={(el) => (tabRefs.current[label] = el)}
+              className={({ isActive }) => {
+                if (isActive) setActiveTab(label);
+                return `${styles.MyVelogSectionTab} ${isActive ? styles.MyVelogActive : ''}`;
               }}
-              className={`${styles.MyVelogSectionTab} ${activeTab === label ? styles.MyVelogActive : ''}`}
             >
-              {label}
-            </a>
+              {labelsMap[label]}
+            </NavLink>
           ))}
           <div
             className={styles.MyVelogUnderline}
