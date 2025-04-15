@@ -5,13 +5,9 @@ import Header from '../components/Layout/Header';
 
 function Trending() {
   return (
-    <>
-      <div>
-        <Header />
-        <Tabs />
-        <PostList />
-      </div>
-    </>
+    <div>
+      <PostList />
+    </div>
   );
 }
 

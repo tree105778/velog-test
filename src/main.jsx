@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App.jsx';
+import App, { loader as rootLoader } from './App.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import RootLayout from './components/RootLayout.jsx';
 import Trending from './pages/Trending.jsx';
@@ -16,6 +16,7 @@ const routes = createBrowserRouter([
     children: [
       {
         index: true,
+        loader: rootLoader,
         element: <App />,
       },
       {

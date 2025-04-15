@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './Tabs.module.css';
+import { NavLink } from 'react-router-dom';
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState('trending');
@@ -29,7 +30,7 @@ const Tabs = () => {
           <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" />
         </svg>
       ),
-      href: '/trending/week',
+      href: '/trending',
     },
     {
       key: 'recent',
@@ -95,7 +96,7 @@ const Tabs = () => {
       setIndicatorLeft(activeEl.offsetLeft);
       setIndicatorWidth(activeEl.offsetWidth);
     }
-  }, [activeTab]);
+  }, [activeTab, activeTabIndex]);
 
   return (
     <div className={styles.wrapper}>
@@ -103,15 +104,23 @@ const Tabs = () => {
         <div className={styles.tabsWrapper}>
           <nav className={styles.tabs}>
             {tabs.map((tab, index) => (
-              <a
+              <NavLink
                 key={tab.key}
                 ref={(el) => (tabRefs.current[index] = el)}
-                href={tab.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setActiveTab(tab.key);
+                to={tab.href}
+                // onClick={(e) => {
+                //   e.preventDefault();
+                //   setActiveTab(tab.key);
+                // }}
+                // className={activeTab === tab.key ? styles.activeTab : ''}
+                className={({ isActive }) => {
+                  if (isActive) {
+                    setActiveTab(tab.key);
+                    return styles.activeTab;
+                  }
+
+                  return null;
                 }}
-                className={activeTab === tab.key ? styles.activeTab : ''}
               >
                 <span
                   className={
@@ -123,7 +132,7 @@ const Tabs = () => {
                   {tab.icon}
                 </span>
                 <span>{tab.label}</span>
-              </a>
+              </NavLink>
             ))}
             <div
               className={styles.indicator}
