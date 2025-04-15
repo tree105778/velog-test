@@ -4,6 +4,7 @@
   --text3: #868E96;
   --border1: #DEE2E6;
   --accent: #12B886;
+  --primary2: #20c997
 }
 
 .wrapper {
@@ -518,6 +519,10 @@ footer {
 
 /* 반응형 스타일 */
 @media (max-width: 1024px) {
+  .modalSection {
+    width: 704px;
+  }
+
   .wrapper .right {
     display: none;
   }
@@ -532,14 +537,17 @@ footer {
     padding-left: 1rem;
     padding-right: 1rem;
   }
+
   .editorHeader, .editorWrapper {
     padding-left: 1rem;
     padding-right: 1rem;
   }
+
   .headerContainer {
     padding-left: 1rem;
     padding-right: 1rem;
   }
+
   .footerPublishBtn {
     margin-right: 5rem;
   }
@@ -550,16 +558,20 @@ footer {
     width: 50%;
     /*height: 100%;*/
   }
+
   .wrapper .left {
     width: 50%;
     position: relative;
   }
+
   .wrapper .left .section {
     margin-left: 3rem;
   }
+
   .left footer {
     width: 50%;
   }
+
   .left footer .footerPublishBtn {
     margin-right: 1.5rem;
   }
