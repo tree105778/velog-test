@@ -3,35 +3,45 @@ import styles from './PostCard.module.css';
 
 const PostCard = ({ post }) => {
   return (
-    <a href={post.link} className={styles['post-card']}>
-      <img
-        src={post.image}
-        alt={post.title}
-        className={styles['post-thumbnail']}
-      />
-
-      <div className={styles['post-body']}>
-        <h4 className={styles['post-title']}>{post.title}</h4>
-        <p className={styles['post-description']}>{post.summary}</p>
-        <div className={styles['post-meta']}>
-          {post.date} · {post.comments}개의 댓글
+    <li className={styles.postCard}>
+      <a href={post.link} className={styles.link}>
+        <div className={styles.thumb} style={{ paddingTop: '52.1921%' }}>
+          <img src={post.image} alt={`${post.title} post`} />
         </div>
+      </a>
 
-        <div className={styles['post-footer']}>
-          <div className={styles['author-info']}>
-            <img
-              src={post.profile}
-              alt={post.author}
-              className={styles['author-avatar']}
-            />
-            <span className={styles['author-name']}>
-              by <b>{post.author}</b>
-            </span>
+      <div className={styles.content}>
+        <a href={post.link} className={styles.link}>
+          <h4 className={styles.title}>{post.title}</h4>
+          <div>
+            <p className={styles.summary}>{post.summary}</p>
           </div>
-          <div className={styles['likes']}>🤍 {post.likes}</div>
+        </a>
+        <div className={styles.meta}>
+          <span>{post.date}</span>
+          <span className={styles.dot}>·</span>
+          <span>{post.comments}개의 댓글</span>
         </div>
       </div>
-    </a>
+
+      <div className={styles.footer}>
+        <a className={styles.user} href={post.authorLink}>
+          <img src={post.profile} alt={`user thumbnail of ${post.author}`} />
+          <span>
+            by <b>{post.author}</b>
+          </span>
+        </a>
+        <div className={styles.likes}>
+          <svg viewBox="0 0 24 24">
+            <path
+              fill="currentColor"
+              d="m18 1-6 4-6-4-6 5v7l12 10 12-10V6z"
+            ></path>
+          </svg>
+          {post.likes}
+        </div>
+      </div>
+    </li>
   );
 };
 

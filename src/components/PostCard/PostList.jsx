@@ -1,6 +1,6 @@
 import React from 'react';
-import dummyPosts from './dummyPosts';
 import PostCard from './PostCard';
+import dummyPosts from '../../data/data';
 
 const PostList = () => {
   return (

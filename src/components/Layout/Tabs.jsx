@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styles from './Tabs.module.css';
 
 const Tabs = () => {
@@ -6,6 +6,10 @@ const Tabs = () => {
   const [selectedTimeframe, setSelectedTimeframe] = useState('week');
   const [showTimeframeDropdown, setShowTimeframeDropdown] = useState(false);
   const [showMenuDropdown, setShowMenuDropdown] = useState(false);
+  const [indicatorLeft, setIndicatorLeft] = useState(0);
+  const [indicatorWidth, setIndicatorWidth] = useState(0);
+
+  const tabRefs = useRef([]);
 
   const tabs = [
     {
@@ -83,109 +87,149 @@ const Tabs = () => {
     year: '올해',
   };
 
-  return (
-    <div
-      className={`${styles.HomeTab_wrapper__Z8vJT} ${styles.responsive_mainHeaderResponsive__S6XhY}`}
-    >
-      <nav className={styles.HomeTab_left__o1RQE}>
-        <div className={styles.HomeTab_tab__viwzb}>
-          {tabs.map((tab) => (
-            <a
-              key={tab.key}
-              href={tab.href}
-              onClick={(e) => {
-                e.preventDefault();
-                setActiveTab(tab.key);
-              }}
-              className={
-                activeTab === tab.key ? styles.HomeTab_active__qHDGO : ''
-              }
-            >
-              {tab.icon}
-              <span>{tab.label}</span>
-            </a>
-          ))}
-          <div
-            className={styles.HomeTab_indicator__wQ03f}
-            style={{
-              left: `${tabs.findIndex((t) => t.key === activeTab) * 80}px`,
-              transition: 'left 2%',
-            }}
-          ></div>
-        </div>
-      </nav>
+  const activeTabIndex = tabs.findIndex((t) => t.key === activeTab);
 
-      <div className={styles.HomeTab_right__GMLbd}>
-        <div
-          className={styles.HomeTab_selector__I5TLL}
-          onClick={() => {
-            setShowTimeframeDropdown(!showTimeframeDropdown);
-            setShowMenuDropdown(false);
-          }}
-        >
-          {labelMap[selectedTimeframe]}
+  useEffect(() => {
+    const activeEl = tabRefs.current[activeTabIndex];
+    if (activeEl) {
+      setIndicatorLeft(activeEl.offsetLeft);
+      setIndicatorWidth(activeEl.offsetWidth);
+    }
+  }, [activeTab]);
+
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.inner}>
+        <div className={styles.tabsWrapper}>
+          <nav className={styles.tabs}>
+            {tabs.map((tab, index) => (
+              <a
+                key={tab.key}
+                ref={(el) => (tabRefs.current[index] = el)}
+                href={tab.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setActiveTab(tab.key);
+                }}
+                className={activeTab === tab.key ? styles.activeTab : ''}
+              >
+                <span
+                  className={
+                    activeTab === tab.key
+                      ? styles.activeTabIcon
+                      : styles.tabIcon
+                  }
+                >
+                  {tab.icon}
+                </span>
+                <span>{tab.label}</span>
+              </a>
+            ))}
+            <div
+              className={styles.indicator}
+              style={{ left: indicatorLeft, width: indicatorWidth }}
+            ></div>
+          </nav>
+        </div>
+
+        <div className={styles.selectorArea}>
+          <div
+            className={styles.selector}
+            onClick={() => {
+              setShowTimeframeDropdown(!showTimeframeDropdown);
+              setShowMenuDropdown(false);
+            }}
+          >
+            {labelMap[selectedTimeframe]}
+            <svg
+              stroke="currentColor"
+              fill="currentColor"
+              strokeWidth="0"
+              viewBox="0 0 24 24"
+              height="1em"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path fill="none" d="M0 0h24v24H0z" />
+              <path d="M7 10l5 5 5-5z" />
+            </svg>
+          </div>
+
           <svg
-            stroke="currentColor"
-            fill="currentColor"
-            strokeWidth="0"
+            className={styles.extra}
+            onClick={() => {
+              setShowMenuDropdown(!showMenuDropdown);
+              setShowTimeframeDropdown(false);
+            }}
             viewBox="0 0 24 24"
             height="1em"
             width="1em"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path fill="none" d="M0 0h24v24H0z" />
-            <path d="M7 10l5 5 5-5z" />
+            <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
           </svg>
-        </div>
-        {/* 세로 점 버튼 */}
-        <svg
-          className={styles.HomeTab_extra__x0Vmq}
-          onClick={() => {
-            setShowMenuDropdown(!showMenuDropdown);
-            setShowTimeframeDropdown(false);
-          }}
-          viewBox="0 0 24 24"
-          height="1em"
-          width="1em"
-        >
-          <path fill="none" d="M0 0h24v24H0z" />
-          <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
-        </svg>
 
-        {/* 시간 필터 드롭다운 */}
-        {showTimeframeDropdown && (
-          <div
-            className={styles.TimeframePicker_aligner__hldJ2}
-            style={{ opacity: 1, transform: 'scale(1)' }}
-          >
-            <div className={styles.TimeframePicker_block__zLMBK}>
-              <ul>
-                {timeframes.map((t) => (
-                  <li key={t.key}>
-                    <a
-                      className={
-                        t.key === selectedTimeframe
-                          ? styles.TimeframePicker_active__T3EQK
-                          : ''
-                      }
-                      href={t.href}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setSelectedTimeframe(t.key);
-                        setShowTimeframeDropdown(false);
-                      }}
-                    >
-                      {t.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+          {showTimeframeDropdown && (
+            <div
+              className={styles.dropdownWrap}
+              style={{ opacity: 1, transform: 'scale(1)' }}
+            >
+              <div className={styles.dropdown}>
+                <ul>
+                  {timeframes.map((t) => (
+                    <li key={t.key}>
+                      <a
+                        className={
+                          t.key === selectedTimeframe
+                            ? styles.activeTimeframe
+                            : ''
+                        }
+                        href={t.href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setSelectedTimeframe(t.key);
+                          setShowTimeframeDropdown(false);
+                        }}
+                      >
+                        {t.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {showMenuDropdown && (
+          <div className={styles.menuDropdown}>
+            <ul>
+              <li>
+                <a href="#">공지사항</a>
+              </li>
+              <li>
+                <a href="#">태그 목록</a>
+              </li>
+              <li>
+                <a href="#">서비스 정책</a>
+              </li>
+              <li>
+                <a href="#">Slack</a>
+              </li>
+            </ul>
+            <div className={styles.menuContact}>
+              <strong>문의</strong>
+              contact@velog.io
+            </div>
+            <div className={styles.menuLogo}>
+              <img
+                src="https://assets.velog.io/images/velog/meta/stellate.png"
+                alt="Powered by Stellate"
+              />
             </div>
           </div>
         )}
-
-        {/* 메뉴 드롭다운 */}
-        {showMenuDropdown && <div className={styles.MenuDropdown}></div>}
       </div>
     </div>
   );
