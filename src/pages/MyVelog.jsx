@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './MyVelog.module.css';
 import profileImg from '../assets/name.jpg';
+import series from '../assets/series.jpg';
+import introduction from '../assets/Introduction.jpg';
+import Header from '../components/Layout/Header';
 
 const MyVelog = () => {
   const [activeTab, setActiveTab] = useState('글');
@@ -37,17 +40,7 @@ const MyVelog = () => {
 
   return (
     <div className={styles.MyVelogContainer}>
-      <header className={styles.MyVelogHeader}>
-        <div className={styles.MyVelogLogo}>test.log</div>
-        <nav className={styles.MyVelogNav}>
-          <ul>
-            <li>
-              <button className={styles.MyVelogNavItem}>새 글 작성</button>
-            </li>
-          </ul>
-        </nav>
-      </header>
-
+      <Header />
       <main className={styles.MyVelogBody}>
         <div className={styles.MyVelogProfileHeader}>
           <div className={styles.MyVelogProfileInfo}>
@@ -56,7 +49,7 @@ const MyVelog = () => {
               alt="프로필 이미지"
               className={styles.MyVelogProfileImage}
             />
-            <h1 className={styles.MyVelogTitle}>한종균</h1>
+            <h1 className={styles.MyVelogTitle}></h1>
           </div>
           <div className={styles.MyVelogFollowInfo}>
             <span className={styles.MyVelogFollowNum}>0</span>
@@ -87,27 +80,29 @@ const MyVelog = () => {
           />
         </div>
 
-        <div className={styles.MyVelogSearchContainer}>
-          <input
-            type="text"
-            className={styles.MyVelogSearchInput}
-            placeholder="검색어를 입력하세요"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <svg
-            className={styles.MyVelogSearchIcon}
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M23 21l-5.6-5.6a9 9 0 1 0-1.4 1.4L21 21l2 2zM10 16a6 6 0 1 1 0-12 6 6 0 0 1 0 12z"
-              fill="#888"
+        {activeTab === '글' && (
+          <div className={styles.MyVelogSearchContainer}>
+            <input
+              type="text"
+              className={styles.MyVelogSearchInput}
+              placeholder="검색어를 입력하세요"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
-          </svg>
-        </div>
+            <svg
+              className={styles.MyVelogSearchIcon}
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M23 21l-5.6-5.6a9 9 0 1 0-1.4 1.4L21 21l2 2zM10 16a6 6 0 1 1 0-12 6 6 0 0 1 0 12z"
+                fill="#888"
+              />
+            </svg>
+          </div>
+        )}
 
         <div className={styles.MyVelogTabContent}>
           {activeTab === '글' && (
@@ -174,8 +169,28 @@ const MyVelog = () => {
               </div>
             </div>
           )}
-          {activeTab === '시리즈' && <p>시리즈가 없습니다.</p>}
-          {activeTab === '소개' && <p>소개가 작성되지 않았습니다.</p>}
+          {activeTab === '시리즈' && (
+            <>
+              <img
+                src={series}
+                alt="시리즈 이미지"
+                className={styles.MyVelogSeriesImage}
+              />
+              <p className={styles.SeriesPtag}>시리즈가 없습니다.</p>
+            </>
+          )}
+          {activeTab === '소개' && (
+            <>
+              <img
+                src={introduction}
+                alt="소개 이미지"
+                className={styles.IntroductionImage}
+              />
+              <p className={styles.IntroductionPtag}>
+                소개가 작성되지 않았습니다.
+              </p>
+            </>
+          )}
         </div>
       </main>
     </div>
