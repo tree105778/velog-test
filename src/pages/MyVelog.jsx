@@ -5,7 +5,7 @@ import series from '../assets/series.jpg';
 import introduction from '../assets/Introduction.jpg';
 import Header from '../components/Layout/Header';
 
-const MyVelog = ({ user }) => {
+const MyVelog = ({ userid }) => {
   const [activeTab, setActiveTab] = useState('글');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTag, setSelectedTag] = useState('전체보기');
@@ -49,7 +49,7 @@ const MyVelog = ({ user }) => {
               alt="프로필 이미지"
               className={styles.MyVelogProfileImage}
             />
-            <h1 className={styles.MyVelogTitle}>한종균</h1>
+            <h1 className={styles.MyVelogTitle}>{userid}</h1>
           </div>
           <div className={styles.MyVelogFollowInfo}>
             <span className={styles.MyVelogFollowNum}>0</span>
