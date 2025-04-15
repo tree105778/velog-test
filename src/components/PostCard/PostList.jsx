@@ -1,5 +1,7 @@
 import data from '../../data/data'; // 경로는 네 위치에 맞게 조정
 import PostCard from './PostCard';
+import dummyPosts from '../../data/data';
+import styles from './PostList.module.css';
 
 const PostList = () => {
   return (
