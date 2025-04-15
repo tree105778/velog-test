@@ -39,9 +39,9 @@
   text-decoration: none;
 }
 
-.mainLogo:hover {
+/* .mainLogo:hover {
   color: #212526;
-}
+} */
 
 .right {
   display: flex;
@@ -84,7 +84,7 @@
 
 .dropdownMenu {
   position: absolute;
-  top: 35px;
+  top: 48px;
   right: 0;
   background-color: white;
   border: 1px solid #e9ecef;
