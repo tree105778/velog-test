@@ -1,13 +1,20 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App, { loader as rootLoader } from './App.jsx';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  redirect,
+  RouterProvider,
+} from 'react-router-dom';
 import RootLayout from './components/RootLayout.jsx';
 import Trending from './pages/Trending.jsx';
 import Recent from './pages/Recent.jsx';
 import UserPosts from './pages/UserPosts.jsx';
 import PostWrite from './pages/PostWrite.jsx';
 import MyVelog from './pages/MyVelog.jsx';
+import MyVelogPosts from './pages/MyVelogPosts.jsx';
+import MyVelogSeries from './pages/MyVelogSeries.jsx';
+import MyVelogAbout from './pages/MyVelogAbout.jsx';
 import Feed from './pages/Feed.jsx';
 
 const routes = createBrowserRouter([
@@ -32,9 +39,27 @@ const routes = createBrowserRouter([
         path: '/feed',
         element: <Feed />,
       },
+    ],
+  },
+  {
+    path: '/:userName/',
+    element: <UserPosts />,
+    children: [
       {
-        path: '/:userName/posts',
-        element: <UserPosts />,
+        index: true,
+        loader: async () => redirect('/posts'),
+      },
+      {
+        path: 'posts',
+        element: <MyVelogPosts />,
+      },
+      {
+        path: 'series',
+        element: <MyVelogSeries />,
+      },
+      {
+        path: 'about',
+        element: <MyVelogAbout />,
       },
     ],
   },
