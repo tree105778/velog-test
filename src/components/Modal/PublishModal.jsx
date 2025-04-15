@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './PublishModal.module.css';
 
 function PublishModal({ onClose }) {
+  const [activeTab, setActiveTab] = useState('public');
   return (
     <div className={styles.modalContainer}>
       <div className={styles.modalSection}>
@@ -49,7 +50,10 @@ function PublishModal({ onClose }) {
             <section className={styles.modalSetPublicButton}>
               <h3 className={styles.modalSetPublicH3}>공개 설정</h3>
               <div className={styles.modalPublicSection}>
-                <button className={styles.modalPublicActiveButton}>
+                <button
+                  className={`${activeTab === 'public' ? styles.modalPublicActiveButton : styles.modalPublicNonActivateButton}`}
+                  onClick={() => setActiveTab('public')}
+                >
                   <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path
                       fill="currentColor"
@@ -58,7 +62,10 @@ function PublishModal({ onClose }) {
                   </svg>
                   <div className={styles.modalPublicDiv}>전체 공개</div>
                 </button>
-                <button className={styles.modalPublicNonActivateButton}>
+                <button
+                  className={`${activeTab === 'private' ? styles.modalPublicActiveButton : styles.modalPublicNonActivateButton}`}
+                  onClick={() => setActiveTab('private')}
+                >
                   <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path
                       fill="currentColor"
