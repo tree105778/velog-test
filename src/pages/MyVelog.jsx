@@ -49,7 +49,7 @@ const MyVelog = () => {
               alt="프로필 이미지"
               className={styles.MyVelogProfileImage}
             />
-            <h1 className={styles.MyVelogTitle}></h1>
+            <h1 className={styles.MyVelogTitle}>한종균</h1>
           </div>
           <div className={styles.MyVelogFollowInfo}>
             <span className={styles.MyVelogFollowNum}>0</span>
@@ -189,6 +189,9 @@ const MyVelog = () => {
               <p className={styles.IntroductionPtag}>
                 소개가 작성되지 않았습니다.
               </p>
+              <button className={styles.MyVelogIntroduceButton}>
+                소개글 작성하기
+              </button>
             </>
           )}
         </div>
