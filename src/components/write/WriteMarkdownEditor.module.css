@@ -1,0 +1,191 @@
+:root {
+  --text1: #212529;
+  --text2: #495057;
+  --text3: #868E96;
+  --border1: #DEE2E6;
+  --accent: #12B886;
+}
+
+.toolbarContainer {
+  top: 0;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  z-index: 10;
+  transition: 0.125s ease-in;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  overflow: auto;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  width: auto;
+}
+
+.toolBarButtonContainer {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  color: var(--text3);
+  cursor: pointer;
+  flex-shrink: 0;
+  background: none;
+  outline: none;
+  border: none;
+  padding: 0;
+}
+
+.toolBarButtonContainer:hover {
+  color: var(--text1);
+  background: #f8f9fa;
+}
+
+.toolBarDivContainer {
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: serif;
+}
+
+.toolBarSpan {
+  font-size: 0.75rem;
+}
+
+.toolBarSectionHr {
+  width: 1px;
+  height: 1.25rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  background: var(--border1);
+}
+
+/* 에디터 컨테이너 스타일 */
+.editorContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex: 1;
+  position: relative;
+}
+
+.editorHeader {
+  padding: 1rem 3rem;
+}
+
+.editorWrapper {
+  position: relative;
+  flex: 1;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 태그 관련 스타일 */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  height: 2rem;
+  background: #F8F9FA;
+  color: #12B886;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 1rem;
+  border-radius: 1rem;
+  margin-right: 0.75rem;
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+}
+
+.tagRemoveButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: #868e96;
+  margin-left: 0.5rem;
+  padding: 0;
+}
+
+.tagRemoveButton:hover {
+  color: #495057;
+}
+
+/* CodeMirror 스타일 */
+:global(.CodeMirror) {
+  height: 500px !important;
+  min-height: 500px !important;
+  font-family: 'Fira Mono', monospace, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text1);
+}
+
+:global(.CodeMirror-scroll) {
+  min-height: 500px;
+}
+
+:global(.CodeMirror-placeholder) {
+  color: var(--text3);
+  font-style: italic;
+}
+
+/* CodeMirror 테마 스타일 보강 */
+:global(.cm-s-one-light) {
+  background: #fafafa;
+}
+
+:global(.cm-s-one-dark) {
+  background: #282c34;
+  color: #abb2bf;
+}
+
+/* 링크 추가 UI */
+.addLinkWrapper {
+  position: absolute;
+  z-index: 100;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+.addLinkContainer {
+  padding: 1rem;
+  min-width: 300px;
+}
+
+.linkInput {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--border1);
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.linkButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.cancelButton {
+  padding: 0.5rem 1rem;
+  background: var(--border1);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.confirmButton {
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
