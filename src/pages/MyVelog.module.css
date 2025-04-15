@@ -5,13 +5,8 @@
   box-sizing: border-box;
 }
 
-body {
-  background: white;
-  /* font-family: 'Pretendard', sans-serif; */
-}
-
 /* 전체 컨테이너 */
-.myVelogContainer {
+.MyVelogContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,8 +15,8 @@ body {
   background-color: white;
 }
 
-/* 헤더 */
-.header {
+/* ------------ 헤더 --------------- */
+.MyVelogHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -33,19 +28,19 @@ body {
   z-index: 10;
 }
 
-.logo {
+.MyVelogLogo {
   font-size: 1.5rem;
   font-weight: bold;
   color: black;
 }
 
-.nav ul {
+.MyVelogNav ul {
   display: flex;
   list-style-type: none;
   gap: 20px;
 }
 
-.navItem {
+.MyVelogNavItem {
   padding: 3px 17px;
   border: 1px solid #333;
   background: white;
@@ -60,58 +55,21 @@ body {
   text-align: center;
 }
 
-.navItem:hover {
+.MyVelogNavItem:hover {
   background-color: black;
   color: white;
 }
 
-/* 본문 */
-.body {
+/* ------------ 본문 ------------ */
+.MyVelogBody {
   margin-top: 65px;
   width: 100%;
   max-width: 1200px;
   padding: 40px 100px;
 }
 
-/* 검색창 */
-.searchContainer {
-  margin-top: 50px;
-  margin-right: 120px;
-  position: relative;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.searchInput {
-  width: 200px;
-  padding: 10px 10px 10px 35px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  outline: none;
-}
-
-.searchInput:focus {
-  border-color: black;
-}
-
-.searchIcon {
-  position: absolute;
-  right: 170px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: white;
-  cursor: pointer;
-}
-
-.title {
-  font-size: 26px;
-  text-decoration: none;
-  margin-bottom: 30px;
-}
-
 /* 프로필 헤더 */
-.profileHeader {
+.MyVelogProfileHeader {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -120,52 +78,91 @@ body {
   margin: 0 auto;
 }
 
-.profileInfo {
+.MyVelogProfileInfo {
   display: flex;
   align-items: center;
-  gap: 15px; /* 이미지와 이름 사이 간격 */
-  width: 100%; /* profileInfo의 가로 길이를 100%로 설정 */
+  gap: 15px;
+  width: 100%;
   border-bottom: 1px solid #f1f1f1;
 }
 
-.profileImage {
-  /* align-items: center; */
+.MyVelogProfileImage {
   width: 128px;
   height: 128px;
-  border-radius: 50%; /* 동그랗게 */
-  object-fit: cover; /* 비율 유지하며 채우기 */
+  border-radius: 50%;
+  object-fit: cover;
   margin-bottom: 30px;
 }
 
-/* 팔로우 정보 */
-.followInfo {
-  display: flex;
-  justify-content: flex-end; /* 팔로우 정보를 오른쪽 정렬 */
-  gap: 10px;
-  padding: 10px 30px;
-  margin-top: 10px; /* profileInfo와 간격 추가 */
-  width: 100%; /* followInfo의 가로 길이를 100%로 설정 */
+.MyVelogTitle {
+  font-size: 26px;
+  text-decoration: none;
+  margin-bottom: 30px;
+  font-weight: 500;
 }
 
-.followNum {
+/* 팔로우 정보 */
+.MyVelogFollowInfo {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 10px 30px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.MyVelogFollowNum {
   font-weight: bold;
   color: #333;
 }
 
-.followText {
+.MyVelogFollowText {
   color: #666;
 }
 
-/* 섹션 탭 */
-.sectionTabContainer {
+/* 검색창 */
+.MyVelogSearchContainer {
+  margin-top: 50px;
+  margin-right: 120px;
+  position: relative;
+  margin-bottom: 20px;
   display: flex;
-  gap: 20px;
+  justify-content: flex-end;
+  color: #adb5bd;
+}
+
+.MyVelogSearchInput {
+  width: 200px;
+  height: 36px;
+  padding: 10px 10px 10px 35px;
+  font-size: 14px;
+  border: 1px solid #adb5bd;
+  outline: none;
+}
+
+.MyVelogSearchInput:focus {
+  border-color: black;
+}
+
+.MyVelogSearchIcon {
+  position: absolute;
+  right: 170px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  cursor: pointer;
+}
+
+/* 섹션 탭 */
+.MyVelogSectionTabContainer {
+  display: flex;
   padding: 20px 100px;
   margin-top: 40px;
   justify-content: center;
+  position: relative;
 }
 
-.sectionTab {
+.MyVelogSectionTab {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -180,34 +177,48 @@ body {
   margin-top: 30px;
 }
 
-.sectionTab:hover {
+.MyVelogSectionTab:hover {
   background-color: inherit;
 }
 
-.sectionTab::after {
-  display: none;
-}
-
-.active {
-  border-bottom: 1px solid #2ecc71;
+.MyVelogActive {
   color: #2ecc71;
 }
 
-/* 게시글과 태그를 묶는 전체 래퍼 */
-.postsWrapper {
+.MyVelogUnderline {
+  position: absolute;
+  bottom: 0;
+  width: 128px;
+  height: 1.5px;
+  background-color: #20c997;
+  transition: left 0.3s ease-in-out;
+}
+
+/* ------------ 태그 목록 ------------- */
+.MyVelogPostsWrapper {
   display: flex;
   width: 100%;
   margin-top: 30px;
   letter-spacing: 1px;
 }
 
-.tagTitle {
+.MyVelogTagTitle {
   margin-bottom: 10px;
   font-size: 15px;
 }
 
-.tagItem {
+.MyVelogTagItem {
   padding: 3px 0;
+  font-size: 14px;
+  color: #444;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+  gap: 6px;
+}
+
+.MyVelogTagItem1 {
+  padding: 2px 0;
   font-size: 13px;
   color: #444;
   cursor: pointer;
@@ -216,28 +227,28 @@ body {
   gap: 6px;
 }
 
-.tagActive {
-  color: green !important; /* important 빼야함*/
+.MyVelogTagActive {
+  color: #20c997 !important;
   font-weight: bold;
 }
 
-/* 태그 사이드바 */
-.tagSidebar {
+.MyVelogTagSidebar {
   width: 200px;
   margin-left: -100px;
 }
 
-.tagList {
-  border-top: 1px solid black;
+.MyVelogTagList {
+  border-top: 1px solid silver;
   list-style: none;
+  padding-top: 10px;
 }
 
-.tagItem:hover {
+.MyVelogTagItem:hover {
   text-decoration: underline;
 }
 
-/* 게시글 목록 */
-.postsContainer {
+/* ------------ 게시글 목록 ------------- */
+.MyVelogPostsContainer {
   flex: 1;
   padding-left: 30px;
   display: block;
@@ -245,53 +256,53 @@ body {
   width: 100%;
 }
 
-.postCard {
+.MyVelogPostCard {
   background-color: #fff;
   padding: 20px;
   margin-bottom: 20px;
 }
 
-.postCard + .postCard {
+.MyVelogPostCard + .MyVelogPostCard {
   border-top: 1px solid #f1f3f5;
 }
 
-.postContent {
+.MyVelogPostContent {
   flex: 3;
 }
 
-.postTitle {
+.MyVelogPostTitle {
   font-size: 1.5rem;
   color: #333;
   margin-bottom: 30px;
   letter-spacing: 1px;
 }
 
-.postDescription {
+.MyVelogPostDescription {
   margin-top: 35px;
   font-size: 1rem;
   color: #666;
   letter-spacing: 0.5px;
 }
 
-.postInfoText {
+.MyVelogPostInfoText {
   margin-top: 35px;
   margin-bottom: 40px;
 }
 
-.postTime {
-  color: lightgray;
+.MyVelogPostTime {
+  color: #868e96;
   font-size: 15px;
 }
 
-.postCommentCount {
+.MyVelogPostCommentCount {
   font-size: 15px;
-  color: lightgray;
+  color: #868e96;
   margin-left: 2px;
 }
 
-.dotDivider,
-.dotDivider1 {
-  margin: 0 10px;
+.MyVelogDotDivider,
+.MyVelogDotDivider1 {
+  margin: 0 5px;
   color: #999;
   font-size: 14px;
   line-height: 1;

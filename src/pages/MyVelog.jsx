@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styles from './MyVelog.module.css';
 import profileImg from '../assets/name.jpg';
 
@@ -6,12 +6,21 @@ const MyVelog = () => {
   const [activeTab, setActiveTab] = useState('글');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTag, setSelectedTag] = useState('전체보기');
+  const [underlinePosition, setUnderlinePosition] = useState(0);
 
+  const tabRefs = useRef({});
   const posts = [
     { id: 1, title: 'test', description: 'test', tag: 'test' },
     { id: 2, title: 'test1', description: 'test1', tag: 'test1' },
     { id: 3, title: 'test3', description: 'test3', tag: 'test3' },
   ];
+
+  useEffect(() => {
+    const currentTab = tabRefs.current[activeTab];
+    if (currentTab) {
+      setUnderlinePosition(currentTab.offsetLeft);
+    }
+  }, [activeTab]);
 
   const filteredPosts = posts.filter((post) => {
     const matchSearch =
@@ -27,72 +36,67 @@ const MyVelog = () => {
   }, {});
 
   return (
-    <div className={styles.myVelogContainer}>
-      <header className={styles.header}>
-        <div className={styles.logo}>test.log</div>
-        <nav className={styles.nav}>
+    <div className={styles.MyVelogContainer}>
+      <header className={styles.MyVelogHeader}>
+        <div className={styles.MyVelogLogo}>test.log</div>
+        <nav className={styles.MyVelogNav}>
           <ul>
             <li>
-              <button className={styles.navItem}>새 글 작성</button>
+              <button className={styles.MyVelogNavItem}>새 글 작성</button>
             </li>
           </ul>
         </nav>
       </header>
 
-      <main className={styles.body}>
-        <div className={styles.profileHeader}>
-          {/* 이미지와 이름 부분 */}
-          <div className={styles.profileInfo}>
+      <main className={styles.MyVelogBody}>
+        <div className={styles.MyVelogProfileHeader}>
+          <div className={styles.MyVelogProfileInfo}>
             <img
               src={profileImg}
               alt="프로필 이미지"
-              className={styles.profileImage}
+              className={styles.MyVelogProfileImage}
             />
-            <h1 className={styles.title}>한종균</h1>
+            <h1 className={styles.MyVelogTitle}>한종균</h1>
           </div>
-
-          {/* 팔로워 및 팔로잉 정보 */}
-          <div className={styles.followInfo}>
-            <span className={styles.followNum}>0</span>
-            <span className={styles.followText}>팔로워</span>
-            <span className={styles.followNum}>0</span>
-            <span className={styles.followText}>팔로잉</span>
+          <div className={styles.MyVelogFollowInfo}>
+            <span className={styles.MyVelogFollowNum}>0</span>
+            <span className={styles.MyVelogFollowText}>팔로워</span>
+            <span className={styles.MyVelogFollowNum}>0</span>
+            <span className={styles.MyVelogFollowText}>팔로잉</span>
           </div>
         </div>
 
-        {/* <div className={styles.followInfo}>
-          <span className={styles.followNum}>0</span>
-          <span className={styles.followText}>팔로워</span>
-          <span className={styles.followNum}>0</span>
-          <span className={styles.followText}>팔로잉</span>
-        </div> */}
-
-        <div className={styles.sectionTabContainer}>
+        <div className={styles.MyVelogSectionTabContainer}>
           {['글', '시리즈', '소개'].map((label) => (
             <a
               key={label}
               href="#"
+              ref={(el) => (tabRefs.current[label] = el)}
               onClick={(e) => {
                 e.preventDefault();
                 setActiveTab(label);
               }}
-              className={`${styles.sectionTab} ${activeTab === label ? styles.active : ''}`}
+              className={`${styles.MyVelogSectionTab} ${activeTab === label ? styles.MyVelogActive : ''}`}
             >
               {label}
             </a>
           ))}
+          <div
+            className={styles.MyVelogUnderline}
+            style={{ left: underlinePosition }}
+          />
         </div>
 
-        <div className={styles.searchContainer}>
+        <div className={styles.MyVelogSearchContainer}>
           <input
             type="text"
-            className={styles.searchInput}
+            className={styles.MyVelogSearchInput}
             placeholder="검색어를 입력하세요"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <svg
-            className={styles.searchIcon}
+            className={styles.MyVelogSearchIcon}
             xmlns="http://www.w3.org/2000/svg"
             width="20"
             height="20"
@@ -105,53 +109,63 @@ const MyVelog = () => {
           </svg>
         </div>
 
-        <div className={styles.tabContent}>
+        <div className={styles.MyVelogTabContent}>
           {activeTab === '글' && (
-            <div className={styles.postsWrapper}>
-              <aside className={styles.tagSidebar}>
-                <h4 className={styles.tagTitle}>태그 목록</h4>
-                <ul className={styles.tagList}>
+            <div className={styles.MyVelogPostsWrapper}>
+              <aside className={styles.MyVelogTagSidebar}>
+                <h4 className={styles.MyVelogTagTitle}>태그 목록</h4>
+                <ul className={styles.MyVelogTagList}>
                   <li
-                    className={`${styles.tagItem} ${selectedTag === '전체보기' ? styles.tagActive : ''}`}
+                    className={`${styles.MyVelogTagItem} ${selectedTag === '전체보기' ? styles.MyVelogTagActive : ''}`}
                     onClick={() => setSelectedTag('전체보기')}
                   >
                     전체보기{' '}
-                    <span className={styles.tagCount}>({posts.length})</span>
+                    <span className={styles.MyVelogTagCount}>
+                      ({posts.length})
+                    </span>
                   </li>
-                  {Object.entries(tagCountMap).map(([tag, count]) => (
-                    <li
-                      key={tag}
-                      className={`${styles.tagItem} ${selectedTag === tag ? styles.tagActive : ''}`}
-                      onClick={() => setSelectedTag(tag)}
-                    >
-                      {tag} <span className={styles.tagCount}>({count})</span>
-                    </li>
-                  ))}
+                  {Object.entries(tagCountMap)
+                    .reverse()
+                    .map(([tag, count]) => (
+                      <li
+                        key={tag}
+                        className={`${styles.MyVelogTagItem1} ${selectedTag === tag ? styles.MyVelogTagActive : ''}`}
+                        onClick={() => setSelectedTag(tag)}
+                      >
+                        {tag}{' '}
+                        <span className={styles.MyVelogTagCount}>
+                          ({count})
+                        </span>
+                      </li>
+                    ))}
                 </ul>
               </aside>
 
-              <div className={styles.postsContainer}>
+              <div className={styles.MyVelogPostsContainer}>
                 {filteredPosts.length > 0 ? (
-                  filteredPosts.map((post, index) => (
+                  [...filteredPosts].reverse().map((post, index) => (
                     <div
                       key={post.id}
-                      className={`${styles.postCard} ${index !== filteredPosts.length - 1 ? styles.withBorder : ''}`}
+                      className={`${styles.MyVelogPostCard} ${index !== filteredPosts.length - 1 ? styles.MyVelogWithBorder : ''}`}
                       onClick={() => alert(`게시글 ${post.id} 상세 보기`)}
                     >
-                      <div className={styles.postContent}>
-                        <h2 className={styles.postTitle}>{post.title}</h2>
-                        <p className={styles.postDescription}>
+                      <div className={styles.MyVelogPostContent}>
+                        <h2 className={styles.MyVelogPostTitle}>
+                          {post.title}
+                        </h2>
+                        <p className={styles.MyVelogPostDescription}>
                           {post.description}
                         </p>
                       </div>
-                      <div className={styles.postInfo}>
-                        <p className={styles.postInfoText}>{post.tag}</p>
+                      <div className={styles.MyVelogPostInfo}>
+                        <p className={styles.MyVelogPostInfoText}>{post.tag}</p>
                       </div>
-                      <span className={styles.postTime}>30분전</span>
-                      <span className={styles.dotDivider}>·</span>
-                      <span className={styles.postCommentCount}>
+                      <span className={styles.MyVelogPostTime}>30분전</span>
+                      <span className={styles.MyVelogDotDivider}>.</span>
+                      <span className={styles.MyVelogPostCommentCount}>
                         0개의 댓글
                       </span>
+                      <span className={styles.MyVelogDotDivider1}>·</span>
                     </div>
                   ))
                 ) : (
@@ -160,7 +174,6 @@ const MyVelog = () => {
               </div>
             </div>
           )}
-
           {activeTab === '시리즈' && <p>시리즈가 없습니다.</p>}
           {activeTab === '소개' && <p>소개가 작성되지 않았습니다.</p>}
         </div>
