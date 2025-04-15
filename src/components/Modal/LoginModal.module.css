@@ -1,3 +1,10 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+}
+
 .overlay {
   position: fixed;
   top: 0;
@@ -129,14 +136,13 @@ input {
   box-shadow: 0 0 0 1px #dee2e6;
 }
 
-
 .iconBtn.google {
   background-color: #fff;
   box-shadow: 0 0 0 1px #dee2e6;
 }
 
 .iconBtn.facebook {
-  background-color: rgb(59, 89, 152);;
+  background-color: rgb(59, 89, 152);
 }
 
 .iconBtn svg {

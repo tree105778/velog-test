@@ -1,21 +1,30 @@
 import React, { useState } from 'react';
 import styles from './LoginModal.module.css';
-import { useNavigate } from 'react-router-dom';
-import { Github, Chrome, Facebook } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const LoginModal = ({ onClose, setIsLoggedIn }) => {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogin = () => {
-    if (id === 'Kim' && pw === 'Kim') {
+    const trimmedId = id.trim();
+    const trimmedPw = pw.trim();
+
+    if (trimmedId === 'Kim' && trimmedPw === 'Kim') {
       setIsLoggedIn(true);
       onClose();
-      navigate('/');
+      navigate(location.pathname);
     } else {
       setError('올바르지 않은 아이디 또는 비밀번호 입니다.');
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleLogin();
     }
   };
 
@@ -263,21 +272,28 @@ const LoginModal = ({ onClose, setIsLoggedIn }) => {
         </div>
         <div className={styles.right}>
           <h3>로그인</h3>
-          <input
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-            placeholder="아이디"
-          />
-          <input
-            type="password"
-            value={pw}
-            onChange={(e) => setPw(e.target.value)}
-            placeholder="비밀번호"
-          />
-          {error && <p className={styles.error}>{error}</p>}
-          <button className={styles.loginBtn} onClick={handleLogin}>
-            로그인
-          </button>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault(); // 새로고침 방지
+              handleLogin();
+            }}
+          >
+            <input
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+              placeholder="아이디"
+            />
+            <input
+              type="password"
+              value={pw}
+              onChange={(e) => setPw(e.target.value)}
+              placeholder="비밀번호"
+            />
+            {error && <p className={styles.error}>{error}</p>}
+            <button type="submit" className={styles.loginBtn}>
+              로그인
+            </button>
+          </form>
 
           <p className={styles.socialLabel}>소셜 계정으로 로그인</p>
           <div className={styles.socialIcons}>

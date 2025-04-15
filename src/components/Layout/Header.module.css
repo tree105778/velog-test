@@ -34,14 +34,16 @@
   text-decoration: none;
 }
 
+.logoutBtn {
+  all: unset; 
+  cursor: pointer;
+  color: inherit;
+}
+
 .mainLogo {
   color: #212529;
   text-decoration: none;
 }
-
-/* .mainLogo:hover {
-  color: #212526;
-} */
 
 .right {
   display: flex;

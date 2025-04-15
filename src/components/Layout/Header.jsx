@@ -1,17 +1,42 @@
-import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styles from './Header.module.css';
 import LoginModal from '../Modal/LoginModal';
-
+import { useEffect, useState } from 'react';
 
 function Header() {
   const location = useLocation();
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return localStorage.getItem('isLoggedIn') === 'true';
+  });
 
-  const [isLoggedIn] = useState(false); // 로그인O/X = true/false
+  useEffect(() => {
+    localStorage.setItem('isLoggedIn', isLoggedIn);
+  }, [isLoggedIn]);
+  const [showLoginModal, setShowLoginModal] = useState(false); // 모달 상태
+  const [menuOpen, setMenuOpen] = useState(false); // 드롭다운 메뉴
+
   const userid = 'Kim';
   const isUserPage = location.pathname.startsWith(`/@${userid}`);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false); // 모달 on/off 상태
+
+  useEffect(() => {
+    const savedLogin = localStorage.getItem('isLoggedIn');
+    if (savedLogin === 'true') {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+    localStorage.setItem('isLoggedIn', 'true');
+    window.location.reload();
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('isLoggedIn');
+    setMenuOpen(false);
+    window.location.reload();
+  };
 
   return (
     <header className={styles.header}>
@@ -96,9 +121,7 @@ function Header() {
                 <li>
                   <a href="#">설정</a>
                 </li>
-                <li>
-                  <a href="#">로그아웃</a>
-                </li>
+                <li onClick={handleLogout}>로그아웃</li>
               </ul>
             )}
           </div>
@@ -111,7 +134,10 @@ function Header() {
               로그인
             </button>
             {showLoginModal && (
-              <LoginModal onClose={() => setShowLoginModal(false)} />
+              <LoginModal
+                onClose={() => setShowLoginModal(false)}
+                setIsLoggedIn={setIsLoggedIn}
+              />
             )}
           </>
         )}
