@@ -274,7 +274,7 @@ const LoginModal = ({ onClose, setIsLoggedIn }) => {
           <h3>로그인</h3>
           <form
             onSubmit={(e) => {
-              e.preventDefault(); // 새로고침 방지
+              e.preventDefault();
               handleLogin();
             }}
           >
@@ -287,6 +287,7 @@ const LoginModal = ({ onClose, setIsLoggedIn }) => {
               type="password"
               value={pw}
               onChange={(e) => setPw(e.target.value)}
+              onKeyDown={handleKeyDown}
               placeholder="비밀번호"
             />
             {error && <p className={styles.error}>{error}</p>}
