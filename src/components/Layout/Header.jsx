@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import styles from './Header.module.css';
 import LoginModal from '../Modal/LoginModal';
 import { useEffect, useState, useRef } from 'react';
@@ -107,7 +107,9 @@ function Header() {
 
         {isLoggedIn ? (
           <>
-            <button className={styles.writeButton}>새 글 작성</button>
+            <Link to="/write" className={styles.writeButton}>
+              새 글 작성
+            </Link>{' '}
             <div
               className={styles.profileArea}
               ref={dropdownRef}

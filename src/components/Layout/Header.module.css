@@ -73,6 +73,10 @@
   background-color: white;
   color: #212529;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .writeButton:hover {
