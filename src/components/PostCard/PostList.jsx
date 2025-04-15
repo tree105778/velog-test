@@ -1,6 +1,5 @@
-import React from 'react';
+import data from '../../data/data'; // 경로는 네 위치에 맞게 조정
 import PostCard from './PostCard';
-import dummyPosts from '../../data/data';
 
 const PostList = () => {
   return (
@@ -12,8 +11,8 @@ const PostList = () => {
         gap: '1.5rem',
       }}
     >
-      {dummyPosts.map((post) => (
-        <PostCard key={post.id} post={post} />
+      {data.blog_card.map((post, index) => (
+        <PostCard key={index} post={post} />
       ))}
     </ul>
   );
