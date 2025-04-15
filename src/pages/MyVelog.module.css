@@ -287,7 +287,7 @@
 }
 
 .MyVelogTagSidebar {
-  width: 200px;
+  width: 180px;
   margin-left: -100px;
 }
 
@@ -308,12 +308,13 @@
   display: block;
   gap: 20px;
   width: 100%;
+  margin-top: -70px;
 }
 
 .MyVelogPostCard {
   background-color: #fff;
   padding: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 70px;
 }
 
 .MyVelogPostCard + .MyVelogPostCard {
@@ -321,6 +322,8 @@
 }
 
 .MyVelogPostContent {
+  margin-top: 70px;
+
   flex: 3;
 }
 
@@ -352,6 +355,44 @@
   font-size: 15px;
   color: #868e96;
   margin-left: 2px;
+}
+
+.MyVelogLikeImage {
+  width: 13px;
+  height: 13px;
+  color: #868e96;
+  transform: translateY(2px); /* 2px만 아래로 이동 */
+}
+
+.MyVelogLikeCount {
+  margin-left: 5px;
+  color: #868e96;
+  font-size: 15px;
+  align-content: center;
+}
+.MyVelogPrivateBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #343a40;
+  color: white;
+  font-size: 13px;
+  width: 80px;
+  height: 25px;
+  transform: translateY(2px);
+}
+
+.MyVelogPrivateIcon {
+  width: 16px;
+  height: 16px;
+  transform: translateY(1px);
+}
+
+.MyVelogPrivateText {
+  font-size: 13px;
 }
 
 .MyVelogDotDivider,
