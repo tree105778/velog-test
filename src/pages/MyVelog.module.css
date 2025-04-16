@@ -343,8 +343,11 @@
 }
 
 .MyVelogPostInfoText {
-  margin-top: 35px;
-  margin-bottom: 40px;
+  padding: 5px 15px;
+  color: #12b886;
+  border-radius: 20px;
+  background: #f8f9fa;
+  font-size: 14px;
 }
 
 .MyVelogPostTime {
