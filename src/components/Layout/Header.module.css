@@ -164,11 +164,20 @@
 
 .dropdownMenu li:hover {
   background-color: #f8f9fa;
+  color: #12b886;
+}
+
+.dropdownMenu li:hover a {
+  color: #12b886;
 }
 
 .dropdownMenu a {
   text-decoration: none;
   color: #212529;
+}
+
+.dropdownMenu :hover {
+  color: #12b886;
 }
 
 /* 9. 로그아웃 버튼 */
