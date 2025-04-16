@@ -122,8 +122,13 @@ function Header() {
 
               {menuOpen && (
                 <ul className={styles.dropdownMenu}>
-                  <li>
+                  {/* <li>
                     <a href={`/@${userid}/posts`}>내 벨로그</a>
+                  </li> */}
+                  <li
+                    onClick={() => (window.location.href = `/@${userid}/posts`)}
+                  >
+                    내 벨로그
                   </li>
                   <li>
                     <a href="#">임시 글</a>
