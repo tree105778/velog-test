@@ -339,6 +339,7 @@
   font-size: 1rem;
   color: #666;
   letter-spacing: 0.5px;
+  margin-bottom: 35px;
 }
 
 .MyVelogPostInfoText {
@@ -401,4 +402,19 @@
   color: #999;
   font-size: 14px;
   line-height: 1;
+}
+
+.MyVelogPostInfo {
+  display: flex;
+  flex-wrap: wrap; /* 줄 넘김 시 다음 줄로 이동 */
+  gap: 15px; /* 태그들 간의 간격 */
+  margin-bottom: 30px;
+}
+
+.MyVelogPostTag {
+  padding: 5px 15px;
+  color: #12b886;
+  border-radius: 20px;
+  background: #f8f9fa;
+  font-size: 14px;
 }
