@@ -2,9 +2,12 @@ import { useLocation, Link } from 'react-router-dom';
 import styles from './Header.module.css';
 import LoginModal from '../Modal/LoginModal';
 import { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 function Header() {
   const location = useLocation();
+  const navigate = useNavigate();
   const dropdownRef = useRef(null);
   const [isLoggedIn, setIsLoggedIn] = useState(
     () => localStorage.getItem('isLoggedIn') === 'true',
@@ -38,7 +41,7 @@ function Header() {
     setIsLoggedIn(false);
     localStorage.removeItem('isLoggedIn');
     setMenuOpen(false);
-    window.location.reload();
+    navigate('/trending');
   };
 
   return (
