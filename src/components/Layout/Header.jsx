@@ -49,7 +49,7 @@ function Header() {
             <a href="/" className={styles.vLogo}>
               v
             </a>
-            <a href={`/@${userid}`} className={styles.userLog}>
+            <a href={`/@${userid}/posts`} className={styles.userLog}>
               {userid}.log
             </a>
           </>
