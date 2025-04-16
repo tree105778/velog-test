@@ -118,9 +118,9 @@ const routes = createBrowserRouter(
     },
     { path: '/myvelog', element: <MyVelog /> },
   ],
-  {
-    basename: `/velog-test`,
-  },
+  // {
+  //   basename: `/velog-test`,
+  // },
 );
 
 createRoot(document.getElementById('root')).render(
