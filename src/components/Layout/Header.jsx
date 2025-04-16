@@ -62,7 +62,7 @@ function Header() {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 71 24"
-              class="velogLogo"
+              className="velogLogo"
               data-testid="velog-logo"
               width="71"
               height="24"
