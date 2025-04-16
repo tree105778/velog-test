@@ -11,6 +11,27 @@ const Tabs = () => {
   const [indicatorWidth, setIndicatorWidth] = useState(0);
 
   const tabRefs = useRef([]);
+  const menuRef = useRef(null);
+  const timeframeRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(e.target) &&
+        timeframeRef.current &&
+        !timeframeRef.current.contains(e.target)
+      ) {
+        setShowMenuDropdown(false);
+        setShowTimeframeDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const tabs = [
     {
@@ -108,17 +129,12 @@ const Tabs = () => {
                 key={tab.key}
                 ref={(el) => (tabRefs.current[index] = el)}
                 to={tab.href}
-                // onClick={(e) => {
-                //   e.preventDefault();
-                //   setActiveTab(tab.key);
-                // }}
-                // className={activeTab === tab.key ? styles.activeTab : ''}
+
                 className={({ isActive }) => {
                   if (isActive) {
                     setActiveTab(tab.key);
                     return styles.activeTab;
                   }
-
                   return null;
                 }}
               >
@@ -142,7 +158,7 @@ const Tabs = () => {
         </div>
 
         {activeTab === 'trending' && (
-          <div className={styles.selectorArea}>
+          <div className={styles.selectorArea} ref={timeframeRef}>
             <div
               className={styles.selector}
               onClick={() => {
@@ -167,8 +183,10 @@ const Tabs = () => {
 
             {showTimeframeDropdown && (
               <div
-                className={styles.dropdownWrap}
-                style={{ opacity: 1, transform: 'scale(1)' }}
+                ref={timeframeRef}
+                className={`${styles.dropdownWrap} ${
+                  showTimeframeDropdown ? '' : styles.hide
+                }`}
               >
                 <div className={styles.dropdown}>
                   <ul>
@@ -198,7 +216,7 @@ const Tabs = () => {
           </div>
         )}
 
-        <div className={styles.extra}>
+        <div className={styles.extra} ref={menuRef}>
           <svg
             onClick={() => {
               setShowMenuDropdown(!showMenuDropdown);
@@ -219,7 +237,11 @@ const Tabs = () => {
         </div>
 
         {showMenuDropdown && (
-          <div className={styles.menuDropdown}>
+          <div
+            className={`${styles.menuDropdown} ${
+              showMenuDropdown ? '' : styles.hide
+            }`}
+          >
             <ul>
               <li>
                 <a href="#">공지사항</a>

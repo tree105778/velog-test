@@ -107,6 +107,15 @@
   top: 100%;
   z-index: 5;
   transform-origin: top right;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hide {
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
 }
 
 .dropdown {
@@ -170,6 +179,9 @@
   padding: 0;
   overflow: hidden;
   font-family: inherit;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  opacity: 1;
+  transform: scale(1);
 }
 
 .menuDropdown ul {
