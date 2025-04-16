@@ -23,100 +23,105 @@ import {
   fetchUserBlogPost,
 } from './data/data.js';
 
-const routes = createBrowserRouter([
-  {
-    path: '/',
-    element: <RootLayout />,
-    children: [
-      {
-        index: true,
-        loader: rootLoader,
-        element: <App />,
-      },
-      {
-        path: '/trending',
-        loader: async () => {
-          return await fetchBlogCard();
+const routes = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <RootLayout />,
+      children: [
+        {
+          index: true,
+          loader: rootLoader,
+          element: <App />,
         },
-        element: <Trending />,
-      },
-      {
-        path: '/recent',
-        loader: async () => {
-          return await fetchBlogCard();
+        {
+          path: '/trending',
+          loader: async () => {
+            return await fetchBlogCard();
+          },
+          element: <Trending />,
         },
-        element: <Recent />,
-      },
-      {
-        path: '/feed',
-        element: <Feed />,
-      },
-    ],
-  },
-  {
-    path: '/:userName/',
-    element: <UserPosts />,
-    children: [
-      {
-        index: true,
-        loader: async () => redirect('/posts'),
-      },
-      {
-        path: 'posts',
-        loader: async () => {
-          return await fetchUserBlogPost();
+        {
+          path: '/recent',
+          loader: async () => {
+            return await fetchBlogCard();
+          },
+          element: <Recent />,
         },
-        element: <MyVelogPosts />,
-      },
-      {
-        path: 'series',
-        element: <MyVelogSeries />,
-      },
-      {
-        path: 'about',
-        element: <MyVelogAbout />,
-      },
-    ],
-  },
-  {
-    path: '/write',
-    action: async ({ request }) => {
-      const {
-        title,
-        tags,
-        link,
-        description,
-        thumbnailUrl,
-        likes,
-        comments,
-        author,
-        date,
-        authorLink,
-        authorImageUrl,
-        isPublicPost,
-      } = await request.json();
-      if (isPublicPost) {
-        await addBlogCard({
+        {
+          path: '/feed',
+          element: <Feed />,
+        },
+      ],
+    },
+    {
+      path: '/:userName/',
+      element: <UserPosts />,
+      children: [
+        {
+          index: true,
+          loader: async () => redirect('/posts'),
+        },
+        {
+          path: 'posts',
+          loader: async () => {
+            return await fetchUserBlogPost();
+          },
+          element: <MyVelogPosts />,
+        },
+        {
+          path: 'series',
+          element: <MyVelogSeries />,
+        },
+        {
+          path: 'about',
+          element: <MyVelogAbout />,
+        },
+      ],
+    },
+    {
+      path: '/write',
+      action: async ({ request }) => {
+        const {
           title,
-          description,
+          tags,
           link,
+          description,
+          thumbnailUrl,
+          likes,
+          comments,
           author,
+          date,
           authorLink,
           authorImageUrl,
-          date,
-          comments,
-          likes,
-          thumbnailUrl,
-        });
-      }
-      await addUserBlogPost({ title, description, tag: tags });
-      if (!isPublicPost) return redirect(authorLink);
-      return redirect('/');
+          isPublicPost,
+        } = await request.json();
+        if (isPublicPost) {
+          await addBlogCard({
+            title,
+            description,
+            link,
+            author,
+            authorLink,
+            authorImageUrl,
+            date,
+            comments,
+            likes,
+            thumbnailUrl,
+          });
+        }
+        await addUserBlogPost({ title, description, tag: tags });
+        if (!isPublicPost) return redirect(authorLink);
+        return redirect('/');
+      },
+      element: <PostWrite />,
     },
-    element: <PostWrite />,
+    { path: '/myvelog', element: <MyVelog /> },
+  ],
+  {
+    basename: `/velog-test`,
   },
-  { path: '/myvelog', element: <MyVelog /> },
-]);
+);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
