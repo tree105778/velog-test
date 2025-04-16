@@ -490,7 +490,7 @@ const WriteMarkdownEditor = ({
         scrollToCursor(textarea, cursorPos);
       });
     }
-  }, [currentField]);
+  }, [currentField, scrollToCursor]);
 
   // 태그 초기값 설정
   useEffect(() => {
@@ -550,7 +550,11 @@ const WriteMarkdownEditor = ({
             onChange={handleMarkdownChange}
             onFocus={() => setCurrentField('markdown')}
             onScroll={handleScroll}
-            className={styles.markdownTextarea}
+            className={
+              !directMarkdown
+                ? styles.markdownTextareaItalic
+                : styles.markdownTextarea
+            }
           />
         </div>
       </div>
