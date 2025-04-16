@@ -1,0 +1,117 @@
+.postCard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  transition:
+    box-shadow 0.25s ease-in,
+    transform 0.25s ease-in;
+}
+
+.postCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
+}
+
+.link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.thumb {
+  width: 100%;
+  position: relative;
+  padding-top: 52.19%;
+}
+
+.thumb img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  text-align: left;
+}
+
+.title {
+  font-size: 1rem;
+  margin: 0 0 0.25rem;
+  line-height: 1.5;
+  font-weight: 700;
+  color: #212529;
+}
+
+.summary {
+  font-size: 0.875rem;
+  color: #495057;
+  line-height: 1.5;
+  margin: 0 0 1.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta {
+  font-size: 0.75rem;
+  color: #868e96;
+  margin-top: auto;
+  text-align: left;
+}
+
+.separator {
+  margin: 0 0.25rem;
+}
+
+.footer {
+  padding: 0.625rem 1rem;
+  border-top: 1px solid #f1f3f5;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  align-items: center;
+  color: #868e96;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.user img {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  object-fit: cover;
+}
+
+.user span b {
+  color: #212529;
+}
+
+.likes {
+  display: flex;
+  align-items: center;
+  color: #212529;
+}
+
+.likes svg {
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-right: 0.5rem;
+}

@@ -1,8 +1,11 @@
 import React from 'react';
+import RecentList from '../components/PostCard/RecentList';
 
 function Recent() {
   return (
-    <div>Recent</div>
+    <div>
+      <RecentList />
+    </div>
   );
 }
 
