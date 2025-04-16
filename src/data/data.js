@@ -7,23 +7,39 @@ const kimsBlogPost = [
   { id: 3, title: 'test3', description: 'test3', tag: 'test3' },
 ];
 
+const STORAGE_KEY = 'usersBlogPost';
+const PUBLIC_STORAGE = 'publicStorage';
+
 export async function fetchUserBlogPost() {
-  return kimsBlogPost;
+  try {
+    const storedUserPost = localStorage.getItem(STORAGE_KEY);
+    return storedUserPost ? JSON.parse(storedUserPost) : kimsBlogPost;
+  } catch {
+    return kimsBlogPost;
+  }
 }
 
 export async function addUserBlogPost({ title, description, tag }) {
-  await kimsBlogPost.push({
+  const currentData = await fetchUserBlogPost();
+  const newPost = {
     id: kimsBlogPost.length + 1,
     title,
     description,
     tag,
-  });
+  };
+  const updatedData = [...currentData, newPost];
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedData));
 
-  return kimsBlogPost;
+  return updatedData;
 }
 
 export async function fetchBlogCard() {
-  return blog_card;
+  try {
+    const storedBlogCard = localStorage.getItem(PUBLIC_STORAGE);
+    return storedBlogCard ? JSON.parse(storedBlogCard) : blog_card;
+  } catch {
+    return blog_card;
+  }
 }
 
 export async function addBlogCard({
@@ -50,6 +66,8 @@ export async function addBlogCard({
     likes,
     thumbnailUrl,
   });
+
+  localStorage.setItem(PUBLIC_STORAGE, JSON.stringify(blog_card));
 
   return blog_card;
 }
