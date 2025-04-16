@@ -23,9 +23,11 @@ function UserPosts() {
       <main className={styles.MyVelogBody}>
         <div className={styles.MyVelogProfileHeader}>
           <div className={styles.MyVelogProfileInfo}>
-            <div className={styles.MyVelogProfile}>{userId}</div>
+            <div className={styles.MyVelogProfile}>
+              {userId.replace(/^@/, '')}
+            </div>
 
-            <h1 className={styles.MyVelogTitle}>{userId}</h1>
+            <h1 className={styles.MyVelogTitle}>{userId.replace(/^@/, '')}</h1>
           </div>
           <div className={styles.MyVelogFollowInfo}>
             <span className={styles.MyVelogFollowNum}>0</span>
