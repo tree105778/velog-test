@@ -55,7 +55,7 @@ const routes = createBrowserRouter(
       ],
     },
     {
-      path: '/:userName/',
+      path: '/:userName',
       element: <UserPosts />,
       children: [
         {
