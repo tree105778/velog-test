@@ -273,7 +273,7 @@ const LoginModal = ({ onClose, setIsLoggedIn }) => {
           <h2>환영합니다!</h2>
         </div>
         <div className={styles.right}>
-          <h3>로그인</h3>
+          <h3 className={styles.h3}>로그인</h3>
           <form
             onSubmit={(e) => {
               e.preventDefault();
