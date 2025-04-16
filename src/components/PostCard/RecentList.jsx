@@ -1,6 +1,7 @@
-import data from '../../data/data';
+// import data from '../../data/data';
 import PostCard from './PostCard';
 import styles from './PostList.module.css';
+import { useLoaderData } from 'react-router-dom';
 
 const parseDate = (dateString) => {
   const now = new Date();
@@ -46,11 +47,17 @@ const parseDate = (dateString) => {
 };
 
 const RecentList = () => {
-  const sortedData = [...data.blog_card].sort((a, b) => {
+  const blogCard = useLoaderData();
+  const sortedData = [...blogCard].sort((a, b) => {
     const dateA = parseDate(a.date);
     const dateB = parseDate(b.date);
     return dateB - dateA;
   });
+  // const sortedData = [...data.blog_card].sort((a, b) => {
+  //   const dateA = parseDate(a.date);
+  //   const dateB = parseDate(b.date);
+  //   return dateB - dateA;
+  // });
 
   return (
     <ul className={styles.list}>

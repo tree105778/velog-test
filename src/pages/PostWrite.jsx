@@ -5,7 +5,7 @@ import 'codemirror/mode/markdown/markdown';
 import 'codemirror/addon/display/placeholder';
 import WriteMarkdownEditor from '../components/write/WriteMarkdownEditor.jsx';
 import MarkdownPreview from '../components/write/MarkdownPreview.jsx';
-import { useNavigate, useSubmit } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PublishModal from '../components/Modal/PublishModal.jsx';
 
 function PostWrite() {
@@ -14,7 +14,6 @@ function PostWrite() {
   const [markdown, setMarkdown] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-  const submit = useSubmit();
   const modalClose = () => {
     setIsModalOpen(false);
   };
@@ -86,7 +85,14 @@ function PostWrite() {
           <MarkdownPreview markdown={markdown} title={title} />
         </div>
       </div>
-      {isModalOpen && <PublishModal onClose={modalClose} />}
+      {isModalOpen && (
+        <PublishModal
+          title={title}
+          tags={tags}
+          markdown={markdown}
+          onClose={modalClose}
+        />
+      )}
     </>
   );
 }

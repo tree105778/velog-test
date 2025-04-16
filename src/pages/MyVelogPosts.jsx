@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import styles from './MyVelog.module.css';
+import { useLoaderData } from 'react-router-dom';
 
 function MyVelogPosts() {
   const [searchTerm, setSearchTerm] = useState('');
-  const posts = [
-    { id: 1, title: 'test', description: 'test', tags: ['react', 'hook'] },
-    { id: 2, title: 'test1', description: 'test1', tags: ['javascript'] },
-    { id: 3, title: 'test3', description: 'test3', tags: ['react'] },
-  ];
+  const posts = useLoaderData();
 
   const [selectedTag, setSelectedTag] = useState('전체보기');
 
@@ -15,18 +12,12 @@ function MyVelogPosts() {
     const matchSearch =
       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.description.toLowerCase().includes(searchTerm.toLowerCase());
-
-    const matchTag =
-      selectedTag === '전체보기' || post.tags.includes(selectedTag);
-
+    const matchTag = selectedTag === '전체보기' || post.tag === selectedTag;
     return matchSearch && matchTag;
   });
 
-  // 태그별 개수 계산
   const tagCountMap = posts.reduce((acc, post) => {
-    post.tags.forEach((tag) => {
-      acc[tag] = (acc[tag] || 0) + 1;
-    });
+    acc[post.tag] = (acc[post.tag] || 0) + 1;
     return acc;
   }, {});
 
@@ -96,11 +87,7 @@ function MyVelogPosts() {
                     </p>
                   </div>
                   <div className={styles.MyVelogPostInfo}>
-                    {post.tags.map((tag) => (
-                      <span key={tag} className={styles.MyVelogPostTag}>
-                        {tag}
-                      </span>
-                    ))}
+                    <p className={styles.MyVelogPostInfoText}>{post.tag}</p>
                   </div>
                   <span className={styles.MyVelogPostTime}>30분전</span>
                   <span className={styles.MyVelogDotDivider}>.</span>

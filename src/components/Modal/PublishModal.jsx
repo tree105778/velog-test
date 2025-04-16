@@ -1,8 +1,34 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styles from './PublishModal.module.css';
+import { stripMarkdown } from '../../common/stripMarkdown.js';
+import { useSubmit } from 'react-router-dom';
 
-function PublishModal({ onClose }) {
+function PublishModal({ title, tags, markdown, onClose }) {
   const [activeTab, setActiveTab] = useState('public');
+  const [description, setDescription] = useState(
+    stripMarkdown(markdown.slice(0, 50)),
+  );
+  const [imageUrl, setImageUrl] = useState('');
+  const [imageDataUrl, setImageDataUrl] = useState(null);
+  const fileInputRef = useRef(null);
+  const userId = localStorage.getItem('id');
+  const userPostUrl = `/@${userId}/posts`;
+  const submit = useSubmit();
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setImageUrl(`upload/${file.name}`);
+    if (file) {
+      const render = new FileReader();
+      render.onload = () => {
+        setImageDataUrl(render.result);
+      };
+      render.readAsDataURL(file);
+    }
+    console.log(imageUrl);
+    console.log(imageDataUrl);
+  };
+
   return (
     <div className={styles.modalContainer}>
       <div className={styles.modalSection}>
@@ -10,9 +36,38 @@ function PublishModal({ onClose }) {
           <section>
             <h3 className={styles.modalPreviewPostH3}>포스트 미리보기</h3>
             <div className="contents">
+              {imageDataUrl ? (
+                <div className={styles.modalPreviewAdditionalAction}>
+                  <button
+                    className={styles.modalPreviewActionButton}
+                    onClick={() => fileInputRef.current.click()}
+                  >
+                    재업로드
+                  </button>
+                  <div className={styles.modalPreviewMiddleDot}></div>
+                  <button
+                    className={styles.modalPreviewActionButton}
+                    onClick={() => {
+                      setImageDataUrl('');
+                      setImageUrl('');
+                    }}
+                  >
+                    제거
+                  </button>
+                </div>
+              ) : null}
               <div className={styles.thumbnailUploadFirstContainer}>
                 <div className={styles.thumbnailUploadSecondContainer}>
                   <div className={styles.thumbnailUploadThirdContainer}>
+                    {imageDataUrl ? (
+                      <div className={styles.modalPreviewImageContainer}>
+                        <img
+                          src={imageDataUrl}
+                          alt="미리보기"
+                          className={styles.modalPreviewImage}
+                        />
+                      </div>
+                    ) : null}
                     <svg
                       width="107"
                       height="85"
@@ -28,9 +83,19 @@ function PublishModal({ onClose }) {
                         d="M29.517 40.84c5.666 0 10.274-4.608 10.274-10.271 0-5.668-4.608-10.276-10.274-10.276-5.665 0-10.274 4.608-10.274 10.274 0 5.665 4.609 10.274 10.274 10.274zm0-16.857a6.593 6.593 0 0 1 6.584 6.584 6.593 6.593 0 0 1-6.584 6.584 6.591 6.591 0 0 1-6.584-6.582c0-3.629 2.954-6.586 6.584-6.586zM12.914 73.793a1.84 1.84 0 0 0 1.217-.46l30.095-26.495 19.005 19.004a1.843 1.843 0 0 0 2.609 0 1.843 1.843 0 0 0 0-2.609l-8.868-8.868 16.937-18.548 20.775 19.044a1.846 1.846 0 0 0 2.492-2.72L75.038 31.846a1.902 1.902 0 0 0-1.328-.483c-.489.022-.95.238-1.28.6L54.36 51.752l-8.75-8.75a1.847 1.847 0 0 0-2.523-.081l-31.394 27.64a1.845 1.845 0 0 0 1.22 3.231z"
                       ></path>
                     </svg>
-                    <button className={styles.thumbnailUploadButton}>
+                    <button
+                      className={styles.thumbnailUploadButton}
+                      onClick={() => fileInputRef.current.click()}
+                    >
                       썸네일 업로드
                     </button>
+                    <input
+                      type="file"
+                      accept="images/*"
+                      ref={fileInputRef}
+                      style={{ display: 'none' }}
+                      onChange={handleFileChange}
+                    />
                   </div>
                 </div>
               </div>
@@ -39,6 +104,8 @@ function PublishModal({ onClose }) {
                 <textarea
                   placeholder="당신의 포스트를 짧게 소개해보세요."
                   className={styles.modalTextArea}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                 ></textarea>
               </div>
             </div>
@@ -80,7 +147,7 @@ function PublishModal({ onClose }) {
               <h3 className={styles.modalUrlH3}>URL 설정</h3>
               <div className="contents">
                 <div className={styles.modalUrlInputContainer}>
-                  <input className={styles.modalUrlInput} />
+                  <input className={styles.modalUrlInput} value={userPostUrl} />
                 </div>
               </div>
             </section>
@@ -108,7 +175,35 @@ function PublishModal({ onClose }) {
             >
               취소
             </button>
-            <button className={styles.modalSubmitSectionPublishButton}>
+            <button
+              className={styles.modalSubmitSectionPublishButton}
+              onClick={() => {
+                const now = new Date(Date.now());
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                submit(
+                  {
+                    title,
+                    tags,
+                    link: userPostUrl,
+                    description,
+                    thumbnailUrl: imageDataUrl,
+                    likes: 0,
+                    comments: '0개의 댓글',
+                    author: userId,
+                    date: `${year}년 ${month}월 ${day}일`,
+                    authorLink: userPostUrl,
+                    authorImageUrl: null,
+                    isPublicPost: activeTab === 'public',
+                  },
+                  {
+                    method: 'post',
+                    encType: 'application/json',
+                  },
+                );
+              }}
+            >
               출간하기
             </button>
           </div>

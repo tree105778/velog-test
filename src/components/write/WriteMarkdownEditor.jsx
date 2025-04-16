@@ -427,9 +427,9 @@ const WriteMarkdownEditor = ({
   );
 
   // 태그 입력 처리
-  const handleTagInputChange = useCallback((e) => {
+  const handleTagInputChange = (e) => {
     setTagInput(e.target.value);
-  }, []);
+  };
 
   // 태그 포커스 처리
   const handleTagInputFocus = useCallback(() => {

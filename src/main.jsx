@@ -16,6 +16,12 @@ import MyVelogPosts from './pages/MyVelogPosts.jsx';
 import MyVelogSeries from './pages/MyVelogSeries.jsx';
 import MyVelogAbout from './pages/MyVelogAbout.jsx';
 import Feed from './pages/Feed.jsx';
+import {
+  addBlogCard,
+  addUserBlogPost,
+  fetchBlogCard,
+  fetchUserBlogPost,
+} from './data/data.js';
 
 const routes = createBrowserRouter([
   {
@@ -29,10 +35,16 @@ const routes = createBrowserRouter([
       },
       {
         path: '/trending',
+        loader: async () => {
+          return await fetchBlogCard();
+        },
         element: <Trending />,
       },
       {
         path: '/recent',
+        loader: async () => {
+          return await fetchBlogCard();
+        },
         element: <Recent />,
       },
       {
@@ -51,6 +63,9 @@ const routes = createBrowserRouter([
       },
       {
         path: 'posts',
+        loader: async () => {
+          return await fetchUserBlogPost();
+        },
         element: <MyVelogPosts />,
       },
       {
@@ -65,6 +80,39 @@ const routes = createBrowserRouter([
   },
   {
     path: '/write',
+    action: async ({ request }) => {
+      const {
+        title,
+        tags,
+        link,
+        description,
+        thumbnailUrl,
+        likes,
+        comments,
+        author,
+        date,
+        authorLink,
+        authorImageUrl,
+        isPublicPost,
+      } = await request.json();
+      if (isPublicPost) {
+        await addBlogCard({
+          title,
+          description,
+          link,
+          author,
+          authorLink,
+          authorImageUrl,
+          date,
+          comments,
+          likes,
+          thumbnailUrl,
+        });
+      }
+      await addUserBlogPost({ title, description, tag: tags });
+      if (!isPublicPost) return redirect(authorLink);
+      return redirect('/');
+    },
     element: <PostWrite />,
   },
   { path: '/myvelog', element: <MyVelog /> },
